@@ -1,0 +1,112 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f4f4f9;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 5vh;
+}
+
+.logo {
+  margin: 8px 1rem;
+  max-height: 36px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.main-top-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/** Instructions */
+.instruction {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.keys {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.key svg {
+  width: 30px;
+  height: 30px;
+  fill: #333;
+}
+
+/** Grid */
+#grid {
+  display: grid;
+  grid-template-columns: repeat(20, 20px);
+  grid-template-rows: repeat(20, 20px);
+  gap: 1px;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  background-color: #555;
+}
+
+.cell.discovered {
+  background-color: #aaa;
+}
+
+.cell.pixel {
+  background-color: #6abfad;
+}
+
+/** Buttons */
+.btn {
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn.btn-action {
+  background-color: #6abfad;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+/** Tools */
+.hidden {
+  display: none !important;
+}
