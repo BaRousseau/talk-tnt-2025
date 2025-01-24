@@ -1,3 +1,7 @@
+:root {
+  --bg-color: #f4f4f9;
+}
+
 body {
   font-family: Arial, sans-serif;
   display: flex;
@@ -5,7 +9,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #f4f4f9;
+  background-color: var(--bg-color);
 }
 
 .header {
@@ -13,8 +17,10 @@ body {
   top: 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 5vh;
+  margin: 1rem;
 }
 
 .logo {
@@ -30,18 +36,17 @@ body {
   width: 100%;
 }
 
-.main-top-container {
+.game-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 1rem;
 }
 
 /** Instructions */
 .instruction {
   text-align: center;
-  margin-bottom: 20px;
 }
 
 .keys {
@@ -80,6 +85,10 @@ body {
 .cell {
   width: 20px;
   height: 20px;
+  background-color: var(--bg-color);
+}
+
+.cell.wall {
   background-color: #555;
 }
 
@@ -90,6 +99,27 @@ body {
 .cell.pixel {
   background-color: #6abfad;
 }
+
+.cell.entry {
+  background-color: rgb(170, 218, 139);
+}
+
+.cell.exit {
+  background-color: rgb(240, 106, 106);
+}
+
+.cell.treasure {
+  background-color: gold;
+}
+
+.cell.trap {
+  background-color: red;
+}
+
+.cell.bonus {
+  background-color: lightgreen;
+}
+
 
 /** Buttons */
 .btn {
