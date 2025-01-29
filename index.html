@@ -17,6 +17,10 @@
   </div>
 
   <div class="main">
+    <button id="loadGameButton" class="btn btn-action">
+      Charger une partie
+    </button>
+
     <div id="game" class="hidden game-container">
       <div class="instruction">
         <h2>Naviguer avec les touches directionnelles</h2>
@@ -47,9 +51,13 @@
       <div id="grid"></div>
     </div>
 
-    <button id="loadGameButton" class="btn btn-action">
-      Charger une partie
-    </button>
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <h2 id="modalTitle"></h2>
+        <p id="modalContent"></p>
+        <button id="closeModal" class="btn btn-action">Fermer</button>
+      </div>
+    </div>
 
   </div>
 

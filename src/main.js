@@ -1,14 +1,18 @@
-const loadGameButton = document
-  .getElementById("loadGameButton");
+const loadGameButton = document.getElementById("loadGameButton");
 
 loadGameButton.addEventListener("click", async () => {
-  // En Production : Utilisez un hash dans le nom du fichier ou configurez les en-têtes HTTP
-  const modulePath = `./game.js`;
+  const modulePath = `./game.js?${Date.now()}`; // Force le rechargement du module
   await import(modulePath)
     .then((gameModule) => {
-      // Utiliser le module importé
-      loadGameButton.classList.add("hidden");
-      gameModule.start();
+      loadGameButton.innerText = "Recharger une partie";
+
+      const tileSize = 2; // Taille des tuiles (en rem)
+      const specialTileConfig = {
+        treasure: 5,
+        trap: 3,
+        bonus: 6,
+      };
+      gameModule.start(tileSize, specialTileConfig);
     })
     .catch((err) => {
       console.error("Erreur lors du chargement dynamique :", err);

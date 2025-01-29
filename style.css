@@ -1,11 +1,12 @@
 :root {
   --bg-color: #f4f4f9;
+  --action-color: #6abfad;
 }
 
 body {
   font-family: Arial, sans-serif;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   height: 100vh;
   margin: 0;
@@ -13,8 +14,6 @@ body {
 }
 
 .header {
-  position: fixed;
-  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,7 +40,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 /** Instructions */
@@ -82,44 +81,56 @@ body {
   gap: 1px;
 }
 
+/* Par défaut, toutes les cases sont "invisibles" mais présentes */
 .cell {
-  width: 20px;
-  height: 20px;
-  background-color: var(--bg-color);
+  opacity: 0;
+  /* Rend la case invisible, mais toujours interactive */
+  background-color: rgba(0, 0, 0, 1);
+  /* Noir total */
+  transition: opacity 0.3s ease, background-color 0.3s ease;
 }
 
-.cell.wall {
-  background-color: #555;
-}
-
+/* Lorsqu'une case est découverte, elle devient visible */
 .cell.discovered {
-  background-color: #aaa;
+  opacity: 1;
+  background-color: transparent !important;
 }
 
-.cell.pixel {
-  background-color: #6abfad;
+/* Les murs deviennent visibles après découverte */
+.cell.discovered.wall {
+  background-color: #555 !important;
+}
+
+/* Les cases spéciales restent visibles après découverte */
+.cell.discovered.treasure {
+  background-color: gold !important;
+  border: 2px solid gold;
+}
+
+.cell.discovered.trap {
+  background-color: brown !important;
+  border: 2px solid brown;
+}
+
+.cell.discovered.bonus {
+  background-color: lightgreen !important;
+  border: 2px solid lightgreen;
+}
+
+/* Le pixel (joueur) doit toujours être visible */
+.cell.discovered.pixel {
+  opacity: 1 !important;
+  background-color: var(--action-color) !important;
+  /* Exemple de couleur du pixel */
 }
 
 .cell.entry {
-  background-color: rgb(170, 218, 139);
+  border: 2px solid green;
 }
 
 .cell.exit {
-  background-color: rgb(240, 106, 106);
+  border: 2px solid red;
 }
-
-.cell.treasure {
-  background-color: gold;
-}
-
-.cell.trap {
-  background-color: red;
-}
-
-.cell.bonus {
-  background-color: lightgreen;
-}
-
 
 /** Buttons */
 .btn {
@@ -131,7 +142,7 @@ body {
 }
 
 .btn.btn-action {
-  background-color: #6abfad;
+  background-color: var(--action-color);
   color: #fff;
   font-size: 1.5rem;
 }
@@ -139,4 +150,24 @@ body {
 /** Tools */
 .hidden {
   display: none !important;
+}
+
+/** Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
 }
