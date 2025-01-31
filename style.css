@@ -1,6 +1,7 @@
 :root {
   --bg-color: #f4f4f9;
   --action-color: #6abfad;
+  --cell-border-size: 3px;
 }
 
 body {
@@ -41,95 +42,115 @@ body {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  width: 100%;
 }
 
-/** Instructions */
-.instruction {
-  text-align: center;
-}
-
-.keys {
+.game-content {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/** Menu */
+#menu {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.key {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border: 2px solid #333;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.menu-item {
+  padding-left: 10px;
+  border-left: 4px solid darkslategrey;
+  opacity: 0.5;
 }
 
-.key svg {
-  width: 30px;
-  height: 30px;
-  fill: #333;
+/** Legend */
+#legend {
+  padding: 10px;
+}
+
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.legend-item.arrow-keys span {
+  margin-top: -15px;
+}
+
+.legend-item img {
+  width: 100px;
 }
 
 /** Grid */
 #grid {
   display: grid;
-  grid-template-columns: repeat(20, 20px);
-  grid-template-rows: repeat(20, 20px);
+  grid-template-columns: repeat(21, 20px);
+  grid-template-rows: repeat(21, 20px);
   gap: 1px;
 }
 
 /* Par défaut, toutes les cases sont "invisibles" mais présentes */
 .cell {
   opacity: 0;
-  /* Rend la case invisible, mais toujours interactive */
   background-color: rgba(0, 0, 0, 1);
-  /* Noir total */
   transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.cell:before {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  padding-bottom: calc(9/16 * 100%);
 }
 
 /* Lorsqu'une case est découverte, elle devient visible */
 .cell.discovered {
   opacity: 1;
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
 /* Les murs deviennent visibles après découverte */
 .cell.discovered.wall {
-  background-color: #555 !important;
+  background-color: #555;
 }
 
 /* Les cases spéciales restent visibles après découverte */
-.cell.discovered.treasure {
-  background-color: gold !important;
-  border: 2px solid gold;
+.cell.discovered.activated.treasure {
+  border: var(--cell-border-size) solid gold;
+  background-color: gold;
 }
 
-.cell.discovered.trap {
-  background-color: brown !important;
-  border: 2px solid brown;
+.cell.discovered.activated.trap {
+  border: var(--cell-border-size) solid brown;
+  background-color: brown;
 }
 
-.cell.discovered.bonus {
-  background-color: lightgreen !important;
-  border: 2px solid lightgreen;
+.cell.discovered.activated.bonus {
+  border: var(--cell-border-size) solid lightgreen;
+  background-color: lightgreen;
+}
+
+.cell.discovered.treasure, .cell.discovered.bonus, .cell.discovered.trap {
+  border: var(--cell-border-size) solid rgb(19, 134, 241);
 }
 
 /* Le pixel (joueur) doit toujours être visible */
 .cell.discovered.pixel {
   opacity: 1 !important;
   background-color: var(--action-color) !important;
-  /* Exemple de couleur du pixel */
 }
 
 .cell.entry {
-  border: 2px solid green;
+  border: var(--cell-border-size) solid green;
 }
 
 .cell.exit {
-  border: 2px solid red;
+  border: var(--cell-border-size) solid red;
 }
 
 /** Buttons */

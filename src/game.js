@@ -1,24 +1,35 @@
+import { LEVEL_2020 } from './levels/2020.js';
+
 const gridSize = 21; // Taille de la grille (impair pour un labyrinthe)
+const tileSize = 2.2; // Taille d'une case en rem
 const cells = []; // Tableau pour stocker les cellules de la grille
 let specialTiles = []; // Cases spéciales : trésors, pièges, bonus
+let currentLevel = 0; // Niveau actuel
+let currentLevelContent = {}; // Contenu du niveau actuel
+
+const levels = [
+  LEVEL_2020,
+  LEVEL_2020
+];
 
 const pixelPosition = { x: 1, y: 0 }; // Position actuelle du joueur
+const entryPosition = { x: 1, y: 0 }; // Position de l'entrée
 const exitPosition = { x: gridSize - 2, y: gridSize - 1 }; // Position de la sortie
 
 /**
  * Génère un labyrinthe et initialise les cases spéciales.
  */
-function generateGrid(tileSize = 2, specialTileConfig = {}) {
+function generateGrid() {
   const gridElement = document.getElementById("grid");
   gridElement.innerHTML = "";
   gridElement.style.gridTemplateColumns = `repeat(${gridSize}, ${tileSize}rem)`;
   gridElement.style.gridTemplateRows = `repeat(${gridSize}, ${tileSize}rem)`;
 
   const maze = generateMaze(gridSize);
-  specialTiles = generateSpecialTiles(maze, specialTileConfig);
+  specialTiles = generateSpecialTiles(maze);
 
   // Forcer l'entrée et la sortie à être accessibles
-  maze[pixelPosition.y][pixelPosition.x] = 0; // Entrée
+  maze[entryPosition.y][entryPosition.x] = 0; // Entrée
   maze[exitPosition.y][exitPosition.x] = 0; // Sortie
 
   maze.forEach((row, y) => {
@@ -30,8 +41,8 @@ function generateGrid(tileSize = 2, specialTileConfig = {}) {
         div.classList.add("wall");
       }
 
-      // 🔹 Marquer l'entrée et la sortie
-      if (x === pixelPosition.x && y === pixelPosition.y) {
+      // Marquer l'entrée et la sortie
+      if (x === entryPosition.x && y === entryPosition.y) {
         div.classList.add("entry");
       }
       if (x === exitPosition.x && y === exitPosition.y) {
@@ -52,27 +63,25 @@ function generateGrid(tileSize = 2, specialTileConfig = {}) {
 /**
  * Génère des cases spéciales dans le labyrinthe.
  */
-function generateSpecialTiles(maze, specialTileConfig) {
+function generateSpecialTiles(maze) {
   const specialTiles = [];
-  const types = ["treasure", "trap", "bonus"];
 
-  types.forEach((type) => {
-    for (let i = 0; i < specialTileConfig[type]; i++) {
-      let x, y;
-      do {
-        x = Math.floor(Math.random() * gridSize);
-        y = Math.floor(Math.random() * gridSize);
-      } while (
-        maze[y][x] !== 0 || // Doit être une case vide
-        (x === pixelPosition.x && y === pixelPosition.y) || // Pas sur le joueur
-        (x === exitPosition.x && y === exitPosition.y) || // Pas sur la sortie
-        specialTiles.some((tile) => tile.x === x && tile.y === y)
-      );
+  currentLevelContent.specialTiles.forEach((specialTile) => {
+    let x, y;
+    do {
+      x = Math.floor(Math.random() * gridSize);
+      y = Math.floor(Math.random() * gridSize);
+    } while (
+      maze[y][x] !== 0 || // Doit être une case vide
+      (x === pixelPosition.x && y === pixelPosition.y) || // Pas sur le joueur
+      (x === entryPosition.x && y === entryPosition.y) || // Pas sur l'entrée
+      (x === exitPosition.x && y === exitPosition.y) || // Pas sur la sortie
+      specialTiles.some((tile) => tile.x === x && tile.y === y)
+    );
 
-      specialTiles.push({ x, y, type });
-    }
+    specialTiles.push({ x, y, ...specialTile });
   });
-
+  console.log('Cases spéciales', specialTiles);
   return specialTiles;
 }
 
@@ -147,9 +156,51 @@ function updateGrid() {
   if (!cell.classList.contains("wall")) {
     cell.classList.add("pixel", "discovered");
     cell.classList.remove("fog");
+
+    if (cell.classList.contains("treasure") || cell.classList.contains("trap") || cell.classList.contains("bonus")) {
+      cell.classList.add("activated");
+    }
   }
 }
 
+/**
+ * Charge le niveau suivant.
+ */
+function loadNextLevel() {
+  currentLevel = (currentLevel + 1) % levels.length;
+  start(levels[currentLevel]);
+}
+
+/**
+ * Vérifie si le joueur est sur une case spéciale et affiche la modal.
+ */
+function openSpecialTile() {
+  const specialTile = specialTiles.find(tile =>
+    tile.x === pixelPosition.x && tile.y === pixelPosition.y
+  );
+
+  if (specialTile) {
+    let title = "";
+    let content = "";
+
+    switch (specialTile.type) {
+      case "treasure":
+        title = "Trésor trouvé !";
+        content = "Vous avez découvert un trésor ancien rempli de richesses.";
+        break;
+      case "trap":
+        title = "Attention, un piège !";
+        content = "Vous êtes tombé dans un piège et perdez du temps.";
+        break;
+      case "bonus":
+        title = "Bonus trouvé !";
+        content = "Vous gagnez un avantage spécial pour votre voyage.";
+        break;
+    }
+
+    showModal(title, content);
+  }
+}
 
 /**
  * Déplace le joueur selon la direction donnée.
@@ -182,67 +233,81 @@ function movePlayer(direction) {
     pixelPosition.x = newPosition.x;
     pixelPosition.y = newPosition.y;
     updateGrid();
-  }
 
-  closeModal();
-
-  const specialTile = specialTiles.find(tile =>
-    tile.x === pixelPosition.x && tile.y === pixelPosition.y
-  );
-
-  if (specialTile) {
-    let title = "";
-    let content = "";
-
-    switch (specialTile.type) {
-      case "treasure":
-        title = "Trésor trouvé !";
-        content = "Vous avez découvert un trésor ancien rempli de richesses.";
-        break;
-      case "trap":
-        title = "Attention, un piège !";
-        content = "Vous êtes tombé dans un piège et perdez du temps.";
-        break;
-      case "bonus":
-        title = "Bonus trouvé !";
-        content = "Vous gagnez un avantage spécial pour votre voyage.";
-        break;
+    // Vérifier si le joueur est à la sortie
+    if (pixelPosition.x === exitPosition.x && pixelPosition.y === exitPosition.y) {
+      loadNextLevel();
     }
-
-    showModal(title, content);
   }
-
 }
 
 /**
  * Configure les contrôles du clavier pour déplacer le joueur.
  */
 function setupControls() {
-  document.addEventListener("keydown", (event) => {
-    switch (event.key) {
-      case "ArrowUp":
-        movePlayer("up");
-        break;
-      case "ArrowDown":
-        movePlayer("down");
-        break;
-      case "ArrowLeft":
-        movePlayer("left");
-        break;
-      case "ArrowRight":
-        movePlayer("right");
-        break;
-    }
-  });
+  const keydownKey = 'keydown';
+  const keyupKey = 'keyup';
+
+  // Supprimer les anciens écouteurs d'événements pour éviter les doublons
+  document.removeEventListener(keydownKey, handleKeydown);
+  document.removeEventListener(keyupKey, handleKeyup);
+
+  // Ajouter le nouvel écouteur d'événement
+  document.addEventListener(keydownKey, handleKeydown);
+  document.addEventListener(keyupKey, handleKeyup);
+}
+
+// Fonction de gestion des touches sur lors du keydown
+function handleKeydown(event) {
+  switch (event.key) {
+    case "ArrowUp":
+      movePlayer("up");
+      break;
+    case "ArrowDown":
+      movePlayer("down");
+      break;
+    case "ArrowLeft":
+      movePlayer("left");
+      break;
+    case "ArrowRight":
+      movePlayer("right");
+      break;
+  }
+}
+
+// Fonction de gestion des touches sur lors du keyup
+function handleKeyup(event) {
+  switch (event.key) {
+    // Space bar
+    case " ":
+      openSpecialTile();
+      break;
+  }
 }
 
 /**
- * Démarre le jeu.
+ * Configure les contrôles de la modal.
  */
-export function start(tileSize = 2, specialTileConfig = {}) {
+function setupModalControls() {
+  const modalCloseButton = document.getElementById("closeModal");
+
+  // Supprimer l'écouteur d'événement pour le bouton de fermeture
+  modalCloseButton.removeEventListener("click", closeModal);
+
+  // Ajouter un écouteur d'événement pour le bouton de fermeture
+  modalCloseButton.addEventListener("click", closeModal);
+}
+
+/**
+ * Démarre un niveau avec une configuration spéciale.
+ */
+export function start(level = LEVEL_2020) {
   // Réinitialisation des variables
   cells.length = 0;
   specialTiles = [];
+  currentLevelContent = level;
+
+  // Réinitialisation de la position du joueur
   pixelPosition.x = 1;
   pixelPosition.y = 0;
 
@@ -250,10 +315,23 @@ export function start(tileSize = 2, specialTileConfig = {}) {
   const gridElement = document.getElementById("grid");
   gridElement.innerHTML = "";
 
+  // Afficher le jeu
   document.getElementById("game").classList.remove("hidden");
 
-  generateGrid(tileSize, specialTileConfig);
+  // Change le titre du niveau
+  document.getElementById("gameTitle").innerText = level.title;
+
+  // Change la description du niveau
+  document.getElementById("gameDesc").innerText = level.description;
+
+  // Construit le menu de navigation
+  document.getElementById("menu").innerHTML = level.specialTiles
+    .map((specialTile) => `<div class="menu-item">${specialTile.title}</div>`)
+    .join("");
+
+  generateGrid();
   setupControls();
+  setupModalControls();
   updateGrid();
 }
 
@@ -261,19 +339,14 @@ function showModal(title, content) {
   const modal = document.getElementById("modal");
   const modalTitle = document.getElementById("modalTitle");
   const modalContent = document.getElementById("modalContent");
-  const modalButton = document.getElementById("closeModal");
+  const modalCloseButton = document.getElementById("closeModal");
 
   modalTitle.innerText = title;
   modalContent.innerText = content;
   modal.classList.remove("hidden");
-  modalButton.focus();
+  modalCloseButton.focus();
 }
 
 function closeModal() {
   document.getElementById("modal").classList.add("hidden");
 }
-
-// Fermer la modal
-document.getElementById("closeModal").addEventListener("click", () => {
-  closeModal();
-});

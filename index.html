@@ -11,50 +11,46 @@
 
 <body>
   <div class="header">
-    <img src="https://touraine.tech/_nuxt/img/logo.97c6093.svg" alt="" class="logo">
+    <img src="/assets/logo/logo.97c6093.svg" alt="" class="logo">
     <h1>Nouveautés et futur du JavaScript avec son écosystème</h1>
-    <img data-v-bd7cc288="" src="https://touraine.tech/_nuxt/img/apside-top.8b6b29a.png" alt="" class="logo">
+    <img data-v-bd7cc288="" src="/assets/logo/apside-top.8b6b29a.png" alt="" class="logo">
   </div>
 
   <div class="main">
-    <button id="loadGameButton" class="btn btn-action">
+    <button id="loadGameButton" autofocus class="btn btn-action">
       Charger une partie
     </button>
 
     <div id="game" class="hidden game-container">
-      <div class="instruction">
-        <h2>Naviguer avec les touches directionnelles</h2>
-      </div>
-      <div class="keys">
-        <div class="key">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M12 2l6 8h-4v8h-4v-8h-4z" />
-          </svg>
-        </div>
-        <div class="key">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M2 12l8-6v4h8v4h-8v4z" />
-          </svg>
-        </div>
-        <div class="key">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M12 22l-6-8h4v-8h4v8h4z" />
-          </svg>
-        </div>
-        <div class="key">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M22 12l-8 6v-4h-8v-4h8v-4z" />
-          </svg>
-        </div>
-      </div>
+      <h2 id="gameTitle"></h2>
+      <h3 id="gameDesc"></h3>
+      <div class="game-content">
+        <div id="menu"></div>
 
-      <div id="grid"></div>
+        <div id="grid"></div>
+
+        <div id="legend">
+          <div class="legend-item arrow-keys">
+            <img src="assets/keys/arrow-keys.png" alt="Touches directionnelles pour le déplacement">
+            <span>Déplacement</span>
+          </div>
+          <div class="legend-item">
+            <img src="assets/keys/spacebar.png" alt="Barre espace">
+            <span>Case spéciale</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="modal" class="modal hidden">
       <div class="modal-content">
         <h2 id="modalTitle"></h2>
-        <p id="modalContent"></p>
+        <p id="modalContent">
+        </p>
+        <video controls width="250">
+          <source src="/assets/trap/goat_fence_2020.mp4" type="video/mp4" />
+        </video>
+        <video ></video>
         <button id="closeModal" class="btn btn-action">Fermer</button>
       </div>
     </div>
@@ -62,5 +58,9 @@
   </div>
 
 </body>
+
+<footer>
+  <a href="https://tc39.es/ecma262/">Source : Draft ECMA-262</a>
+</footer>
 
 </html>
