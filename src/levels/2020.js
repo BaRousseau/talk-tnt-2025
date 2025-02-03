@@ -3,6 +3,7 @@ export const LEVEL_2020 = {
   description: `En 2020, JavaScript a introduit plusieurs nouvelles fonctionnalités qui améliorent la syntaxe, les performances, et la convivialité du langage.`,
   specialTiles: [
     {
+      id: 'goat-fence',
       type: 'trap',
       title: 'La chèvre',
       description: ['La chèvre est un animal très agile qui peut sauter par-dessus les obstacles.'],
@@ -16,9 +17,10 @@ const fences = [
   [{ isFence: false }, { isFence: true }],
 ].flatMap((fence) => fence);`
       ],
-      assets: ['/assets/trap/goat_fence_2020.mp4']
+      assets: [{ type: 'video', src: '/assets/trap/goat_fence_2020.mp4' }]
     },
     {
+      id: 'match-all',
       type: 'bonus',
       title: 'matchAll',
       description: [
@@ -67,6 +69,7 @@ matches.forEach(match => {
       ]
     },
     {
+      id: 'dynamic-import',
       type: 'treasure',
       title: 'import dynamique à la demande',
       description: [
@@ -116,6 +119,7 @@ export function sayHello() {
       ]
     },
     {
+      id: 'bigint',
       type: 'bonus',
       title: 'BigInt',
       description: [
@@ -133,6 +137,7 @@ console.log(bigInt + 2n); // 1234567890123456789012345678901234567892n`
       ]
     },
     {
+      id: 'promise-all-settled',
       type: 'bonus',
       title: 'Promise.allSettled',
       description: [
@@ -155,6 +160,7 @@ Promise.allSettled(promises).then((results) => {
       ]
     },
     {
+      id: 'global-this',
       type: 'treasure',
       title: 'globalThis',
       description: [
@@ -169,6 +175,7 @@ Promise.allSettled(promises).then((results) => {
       ]
     },
     {
+      id: 'export-all',
       type: 'treasure',
       title: 'export * as ns from "module"',
       description: [
@@ -192,6 +199,7 @@ console.log(myModule.a, myModule.b); // 1, 2`
       ]
     },
     {
+      id: 'for-in-order',
       type: 'bonus',
       title: 'Ordre d\'énumération dans `for-in`',
       description: [
@@ -209,6 +217,7 @@ for (const key in obj) {
       ]
     },
     {
+      id: 'import-meta',
       type: 'bonus',
       title: 'import.meta',
       description: [
@@ -219,10 +228,13 @@ for (const key in obj) {
         "Interopérabilité : Simplifie l'interaction avec les systèmes de modules.",
       ],
       codes: [
-        `console.log(import.meta); // Fournit des informations comme l'URL du module`
+        `// Fournit des informations comme l'URL du module
+console.log(import.meta);
+// { "url": "http://127.0.0.1:8080/src/game.js" }`
       ]
     },
     {
+      id: 'nullish-coalescing',
       type: 'bonus',
       title: 'Nullish Coalescing (`??`)',
       description: [
@@ -247,6 +259,7 @@ console.log('0 || retourne', value); // retourne 'default';`
       ]
     },
     {
+      id: 'optional-chaining',
       type: 'treasure',
       title: 'Optional Chaining (`?.`)',
       description: [

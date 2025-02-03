@@ -5,6 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Talk TNT 2025</title>
+  <link rel="stylesheet" href="/assets/stackoverflow-dark.min.css">
+  <script src="/assets/highlight.min.js"></script>
+  <script src="/assets/javascript.min.js"></script>
+
   <link rel="stylesheet" href="style.css" />
   <script src="src/main.js" defer></script>
 </head>
@@ -45,12 +49,11 @@
     <div id="modal" class="modal hidden">
       <div class="modal-content">
         <h2 id="modalTitle"></h2>
-        <p id="modalContent">
-        </p>
-        <video controls width="250">
-          <source src="/assets/trap/goat_fence_2020.mp4" type="video/mp4" />
-        </video>
-        <video ></video>
+        <h3 id="modalDesc"></h3>
+        <div id="modalGoals"></div>
+        <hr />
+        <div id="modalCodes"></div>
+        <div id="modalAssets"></div>
         <button id="closeModal" class="btn btn-action">Fermer</button>
       </div>
     </div>
@@ -60,7 +63,12 @@
 </body>
 
 <footer>
-  <a href="https://tc39.es/ecma262/">Source : Draft ECMA-262</a>
+  <p>
+    <a href="https://tc39.es/ecma262/">Source : Draft ECMA-262 Language Specification</a>
+  </p>
+  <p>
+    <a href="https://tc39.es/ecma402/">Source : Draft ECMA-402 Internationalization API Specification</a>
+  </p>
 </footer>
 
 </html>

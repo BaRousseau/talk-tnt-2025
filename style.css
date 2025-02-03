@@ -2,6 +2,7 @@
   --bg-color: #f4f4f9;
   --action-color: #6abfad;
   --cell-border-size: 3px;
+  --menu-border-size: 5px;
 }
 
 body {
@@ -42,7 +43,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  width: 100%;
+  width: 98%;
 }
 
 .game-content {
@@ -60,9 +61,26 @@ body {
 }
 
 .menu-item {
+  cursor: pointer;
   padding-left: 10px;
   border-left: 4px solid darkslategrey;
-  opacity: 0.5;
+  opacity: 0.3;
+}
+
+.menu-item.discovered {
+  opacity: 1;
+}
+
+.menu-item.discovered.treasure {
+  border-left: var(--menu-border-size) solid gold;
+}
+
+.menu-item.discovered.trap {
+  border-left: var(--menu-border-size) solid brown;
+}
+
+.menu-item.discovered.bonus {
+  border-left: var(--menu-border-size) solid lightgreen;
 }
 
 /** Legend */
@@ -135,7 +153,9 @@ body {
   background-color: lightgreen;
 }
 
-.cell.discovered.treasure, .cell.discovered.bonus, .cell.discovered.trap {
+.cell.discovered.treasure,
+.cell.discovered.bonus,
+.cell.discovered.trap {
   border: var(--cell-border-size) solid rgb(19, 134, 241);
 }
 
@@ -188,7 +208,23 @@ body {
 
 .modal-content {
   background: white;
+  margin: 20px;
   padding: 20px;
   border-radius: 10px;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+#modalAssets {
   text-align: center;
+}
+
+/** Icons */
+.icon-container {
+  padding: 10px;
+}
+
+.icon-container .icon {
+  width: 30px;
+  height: 30px;
 }

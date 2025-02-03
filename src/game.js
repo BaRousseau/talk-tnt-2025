@@ -1,4 +1,12 @@
 import { LEVEL_2020 } from './levels/2020.js';
+import { LEVEL_2021 } from './levels/2021.js';
+import { LEVEL_2022 } from './levels/2022.js';
+import { LEVEL_2023 } from './levels/2023.js';
+import { LEVEL_2024 } from './levels/2024.js';
+import { LEVEL_2025 } from './levels/2025.js';
+import { LEVEL_STAGE_3 } from './levels/stage-3.js';
+
+console.log(import.meta);
 
 const gridSize = 21; // Taille de la grille (impair pour un labyrinthe)
 const tileSize = 2.2; // Taille d'une case en rem
@@ -9,7 +17,12 @@ let currentLevelContent = {}; // Contenu du niveau actuel
 
 const levels = [
   LEVEL_2020,
-  LEVEL_2020
+  LEVEL_2021,
+  LEVEL_2022,
+  LEVEL_2023,
+  LEVEL_2024,
+  LEVEL_2025,
+  LEVEL_STAGE_3
 ];
 
 const pixelPosition = { x: 1, y: 0 }; // Position actuelle du joueur
@@ -180,25 +193,12 @@ function openSpecialTile() {
   );
 
   if (specialTile) {
-    let title = "";
-    let content = "";
+    // Marquer le menu de la case spéciale comme découverte
+    const menuItem = document.getElementById(`menu-${specialTile.id}`)
+    menuItem.classList.add("discovered");
+    menuItem.classList.add(specialTile.type);
 
-    switch (specialTile.type) {
-      case "treasure":
-        title = "Trésor trouvé !";
-        content = "Vous avez découvert un trésor ancien rempli de richesses.";
-        break;
-      case "trap":
-        title = "Attention, un piège !";
-        content = "Vous êtes tombé dans un piège et perdez du temps.";
-        break;
-      case "bonus":
-        title = "Bonus trouvé !";
-        content = "Vous gagnez un avantage spécial pour votre voyage.";
-        break;
-    }
-
-    showModal(title, content);
+    showModal(specialTile);
   }
 }
 
@@ -326,8 +326,20 @@ export function start(level = LEVEL_2020) {
 
   // Construit le menu de navigation
   document.getElementById("menu").innerHTML = level.specialTiles
-    .map((specialTile) => `<div class="menu-item">${specialTile.title}</div>`)
+    .map((specialTile) => {
+      if (!specialTile.id) {
+        console.warn("Case spéciale sans identifiant unique : ", specialTile.title);
+      }
+      return `<div id="menu-${specialTile.id}" class="menu-item">${specialTile.title}</div>`
+    })
     .join("");
+
+  level.specialTiles.forEach((specialTile) => {
+    const menuItem = document.getElementById(`menu-${specialTile.id}`);
+    menuItem.addEventListener("click", () => {
+      showModal(specialTile);
+    });
+  });
 
   generateGrid();
   setupControls();
@@ -335,14 +347,65 @@ export function start(level = LEVEL_2020) {
   updateGrid();
 }
 
-function showModal(title, content) {
+function showModal(specialTile) {
   const modal = document.getElementById("modal");
   const modalTitle = document.getElementById("modalTitle");
-  const modalContent = document.getElementById("modalContent");
+  const modalDesc = document.getElementById("modalDesc");
+  const modalGoals = document.getElementById("modalGoals");
+  const modalCodes = document.getElementById("modalCodes");
+  const modalAssets = document.getElementById("modalAssets");
   const modalCloseButton = document.getElementById("closeModal");
 
-  modalTitle.innerText = title;
-  modalContent.innerText = content;
+  modalTitle.innerText = specialTile.title;
+  modalDesc.innerText = specialTile.description;
+
+  if (specialTile.goals) {
+    modalGoals.innerHTML = specialTile.goals.map((goal) => `<p>${goal}</p>`).join("");
+  } else {
+    modalGoals.innerHTML = "";
+  }
+
+  if (specialTile.codes) {
+    const ID_COPY = "modal-code-copy-";
+    const ID_CONTENT = "modal-code-content-";
+    modalCodes.innerHTML = specialTile.codes.map((_code, index) => {
+      return `<button id="closeModal" class="btn btn-action icon-container">
+  <img id="${ID_COPY + index}" class="icon" src="/assets/icons/copy.svg"></img>
+</button>
+<pre><code id="${ID_CONTENT + index}" class="language-javascript"></code></pre>
+<hr />`;
+    }).join("");
+
+    specialTile.codes.map((code, index) => {
+      const button = document.getElementById(ID_COPY + index);
+      const content = document.getElementById(ID_CONTENT + index);
+      content.innerHTML = code;
+
+      hljs.highlightElement(content);
+
+      button.addEventListener("click", () => {
+        navigator.clipboard.writeText(code);
+      });
+    });
+  } else {
+    modalCodes.innerHTML = "";
+  }
+
+  if (specialTile.assets) {
+    modalAssets.innerHTML = specialTile.assets.map((asset) => {
+      if (asset.type === 'img') {
+        return `<img src="${asset.src}" alt="${specialTile.title}" />`;
+      }
+      if (asset.type === 'video') {
+        return `<video controls width="500" autoplay loop muted>
+  <source src="${asset.src}" type="video/mp4" />
+</video>`;
+      }
+    }).join("<hr />");
+  } else {
+    modalAssets.innerHTML = "";
+  }
+
   modal.classList.remove("hidden");
   modalCloseButton.focus();
 }

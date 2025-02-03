@@ -16,8 +16,10 @@ Le processus pour qu’une proposition soit ajoutée à ECMAScript suit plusieur
 
 ## Stage 4
 
-<https://github.com/tc39/proposals/blob/main/finished-proposals.md>
+Ecma 262 <https://github.com/tc39/proposals/blob/main/finished-proposals.md>
+Ecma 402 <https://github.com/tc39/proposals/blob/main/ecma402/finished-proposals.md>
 
-## Liste des proposals en dessous du Stage 4
+## Stage 3 / 2 / 1 / 0
 
-<https://github.com/tc39/proposals/tree/main>
+Ecma 262 <https://github.com/tc39/proposals/tree/main>
+Ecma 402 <https://github.com/tc39/proposals/blob/main/ecma402/README.md>
