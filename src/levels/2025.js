@@ -1,6 +1,6 @@
 export const LEVEL_2025 = {
   title: "ECMAScript 2025, the 16th edition - Stage 4",
-  description: "En 2025, JavaScript s'apprête à introduire des fonctionnalités innovantes qui renforcent encore davantage sa polyvalence et ses capacités.",
+  description: "Stage 4 - Proposition finalisée prête à être intégrée dans la spécification officielle.",
   specialTiles: [
     {
       id: "promise-try",
@@ -109,6 +109,24 @@ console.log([...union]); // [1, 2, 3, 4, 5]`
         `const regex = /(?<num>\\d+)-(?<num>\\d+)/;
 const match = regex.exec("123-456");
 console.log(match.groups.num); // "456"`
+      ]
+    },
+    {
+      id: "intl-durationformat",
+      type: "treasure",
+      title: "Intl.DurationFormat (Ecma 402)",
+      description: "Une nouvelle API pour formater des durées dans un format lisible et adapté à la locale.",
+      goals: [
+        "Fournir un moyen standardisé d'afficher des durées de manière naturelle.",
+        "Prendre en charge différentes granularités (heures, minutes, secondes, etc.).",
+        "Gérer automatiquement les règles linguistiques spécifiques à chaque locale."
+      ],
+      codes: [
+        `const formatter = new Intl.DurationFormat("fr", { style: "long" });
+    
+    console.log(formatter.format({ hours: 1, minutes: 30 })); 
+    // "1 heure et 30 minutes"`
+
       ]
     }
   ]

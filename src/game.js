@@ -5,6 +5,9 @@ import { LEVEL_2023 } from './levels/2023.js';
 import { LEVEL_2024 } from './levels/2024.js';
 import { LEVEL_2025 } from './levels/2025.js';
 import { LEVEL_STAGE_3 } from './levels/stage-3.js';
+import { LEVEL_STAGE_2_7 } from './levels/stage-2-7.js';
+import { LEVEL_STAGE_2 } from './levels/stage-2.js';
+import { LEVEL_STAGE_POPULAR } from './levels/stage-popular.js';
 
 console.log(import.meta);
 
@@ -22,7 +25,10 @@ const levels = [
   LEVEL_2023,
   LEVEL_2024,
   LEVEL_2025,
-  LEVEL_STAGE_3
+  LEVEL_STAGE_3,
+  LEVEL_STAGE_2_7,
+  LEVEL_STAGE_2,
+  LEVEL_STAGE_POPULAR
 ];
 
 const pixelPosition = { x: 1, y: 0 }; // Position actuelle du joueur

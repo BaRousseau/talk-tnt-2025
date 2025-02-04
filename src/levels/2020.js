@@ -274,6 +274,62 @@ console.log('0 || retourne', value); // retourne 'default';`
 console.log(obj?.a?.b?.c); // undefined (sans erreur)
 console.log(obj.a.b.c); // avec erreur`
       ]
+    },
+    {
+      id: "intl-numberformat-unified",
+      type: "treasure",
+      title: "Intl.NumberFormat Unified API (Ecma 402)",
+      description: "Une amélioration de l'API Intl.NumberFormat pour offrir plus de flexibilité et de cohérence.",
+      goals: [
+        "Unifier la gestion des formats numériques pour différentes locales.",
+        "Fournir un meilleur contrôle sur le formatage des nombres, y compris les unités, les styles et la notation.",
+        "Améliorer la performance et la compatibilité avec les formats monétaires et scientifiques."
+      ],
+      codes: [
+        `const formatter = new Intl.NumberFormat("fr-FR", {
+      style: "currency",
+      currency: "EUR",
+      notation: "compact"
+    });
+    
+    console.log(formatter.format(1500)); // "1,5 k€"`
+
+      ]
+    },
+    {
+      id: "intl-relativetimeformat",
+      type: "treasure",
+      title: "Intl.RelativeTimeFormat (Ecma 402)",
+      description: "Une API permettant de formater des durées relatives de manière fluide et adaptée à la locale.",
+      goals: [
+        "Faciliter l'affichage de durées relatives comme 'il y a 3 jours' ou 'dans 2 heures'.",
+        "Prendre en charge plusieurs unités de temps (secondes, minutes, jours, mois, années, etc.).",
+        "Assurer un rendu correct et fluide selon la langue et la région de l'utilisateur."
+      ],
+      codes: [
+        `const rtf = new Intl.RelativeTimeFormat("fr", { numeric: "auto" });
+    
+    console.log(rtf.format(-3, "day")); // "il y a 3 jours"
+    console.log(rtf.format(2, "hour")); // "dans 2 heures"`
+      ]
+    },
+    {
+      id: "intl-locale",
+      type: "treasure",
+      title: "Intl.Locale (Ecma 402)",
+      description: "Une API permettant de représenter et manipuler des informations de locale de manière standardisée.",
+      goals: [
+        "Fournir un moyen structuré de gérer les locales.",
+        "Faciliter l'extraction des paramètres régionaux comme la langue, le script et la région.",
+        "Améliorer la compatibilité et la personnalisation des formats internationaux."
+      ],
+      codes: [
+        `const locale = new Intl.Locale("fr-FR");
+    
+    console.log(locale.language); // "fr"
+    console.log(locale.region);   // "FR"
+    console.log(locale.calendars); // ["gregory"]`
+      ]
     }
   ]
-}
+};

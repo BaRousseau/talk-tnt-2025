@@ -1,6 +1,6 @@
 export const LEVEL_STAGE_3 = {
   title: "ECMAScript Stage 3 Proposals",
-  description: "Liste des fonctionnalités actuellement au Stage 3 du processus de standardisation TC39.",
+  description: "Stage 3 - Spécification complète prête pour l'implémentation et les retours.",
   specialTiles: [
     {
       id: "legacy-regexp",

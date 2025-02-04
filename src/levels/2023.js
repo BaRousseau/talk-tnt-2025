@@ -51,6 +51,27 @@ const obj = {};
 weakMap.set(obj, sym);
 console.log(weakMap.get(obj)); // Symbol(key)`
       ]
-    }
+    },
+    {
+      id: "intl-numberformat-v3",
+      type: "treasure",
+      title: "Intl.NumberFormat V3 (Ecma 402)",
+      description: "Une extension de l'API `Intl.NumberFormat` offrant plus d'options de personnalisation pour le formatage des nombres.",
+      goals: [
+        "Ajouter la prise en charge des paramètres de mise en forme avancés, comme la notation scientifique et les arrondis personnalisés.",
+        "Introduire la gestion des séparateurs de groupes et des symboles de devises améliorée.",
+        "Offrir plus de contrôle sur l'affichage des nombres pour des cas d'utilisation spécialisés."
+      ],
+      codes: [
+        `const formatter = new Intl.NumberFormat("fr-FR", {
+      style: "currency",
+      currency: "EUR",
+      roundingMode: "expand",
+      notation: "scientific"
+    });
+    
+    console.log(formatter.format(123456)); // "1,23456E5 €"`
+      ]
+    }    
   ]
 };

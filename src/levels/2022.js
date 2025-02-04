@@ -141,6 +141,79 @@ console.log(data);`
         `const obj = { key: "value" };
         console.log(Object.hasOwn(obj, "key")); // true`
       ]
+    },
+    {
+      id: "intl-enumeration-api",
+      type: "treasure",
+      title: "Intl Enumeration API (Ecma 402)",
+      description: "Une API permettant de récupérer la liste des locales, des fuseaux horaires et des unités supportées.",
+      goals: [
+        "Fournir une méthode standardisée pour énumérer les locales et autres options prises en charge par `Intl`.",
+        "Éviter d'avoir à maintenir des listes statiques de valeurs valides.",
+        "Améliorer la compatibilité et la flexibilité des applications internationales."
+      ],
+      codes: [
+        `console.log(Intl.supportedValuesOf("calendar"));
+    // ["buddhist", "chinese", "coptic", "ethiopic", "gregory", "islamic", "japanese", ...]
+    
+    console.log(Intl.supportedValuesOf("timeZone"));
+    // ["Africa/Abidjan", "Africa/Accra", "Africa/Addis_Ababa", ...]`
+      ]
+    },
+    {
+      id: "intl-displaynames-v2",
+      type: "treasure",
+      title: "Intl.DisplayNames v2 (Ecma 402)",
+      description: "Une amélioration de `Intl.DisplayNames` permettant d'afficher des noms localisés pour plus de types d'entités.",
+      goals: [
+        "Étendre le support aux types supplémentaires comme les fuseaux horaires et les clés de locale.",
+        "Améliorer l'affichage des noms dans des contextes multilingues.",
+        "Standardiser davantage la gestion des noms affichés dans les applications."
+      ],
+      codes: [
+        `const displayNames = new Intl.DisplayNames(["fr"], { type: "currency" });
+    
+    console.log(displayNames.of("USD")); // "dollar américain"
+    console.log(displayNames.of("EUR")); // "euro"`
+      ]
+    },
+    {
+      id: "intl-extend-timezone-name",
+      type: "treasure",
+      title: "Extend TimeZoneName Option (Ecma 402)",
+      description: "Une extension des options de formatage des noms de fuseaux horaires dans `Intl.DateTimeFormat`.",
+      goals: [
+        "Améliorer la flexibilité du formatage des noms de fuseaux horaires.",
+        "Prendre en charge plus de niveaux de détails dans l'affichage des fuseaux horaires.",
+        "Permettre une meilleure adaptation aux besoins des utilisateurs."
+      ],
+      codes: [
+        `const formatter = new Intl.DateTimeFormat("fr", { timeZone: "America/New_York", timeZoneName: "shortOffset" });
+    
+    console.log(formatter.format(new Date())); // "4 févr. 2025, UTC-5"`
+      ]
+    },
+    {
+      id: "intl-segmenter",
+      type: "treasure",
+      title: "Intl.Segmenter: Segmentation Unicode en JavaScript (Ecma 402)",
+      description: "Une API permettant de découper un texte en segments linguistiquement significatifs (mots, phrases, etc.).",
+      goals: [
+        "Améliorer la gestion du découpage des textes dans les langues complexes.",
+        "Permettre une segmentation correcte selon les règles linguistiques de la locale.",
+        "Faciliter l'analyse de texte et la mise en forme avancée."
+      ],
+      codes: [
+        `const segmenter = new Intl.Segmenter("fr", { granularity: "word" });
+    
+    const segments = segmenter.segment("Bonjour le monde");
+    for (const segment of segments) {
+      console.log(segment.segment);
+    }
+    // "Bonjour"
+    // "le"
+    // "monde"`
+      ]
     }
   ]
 };

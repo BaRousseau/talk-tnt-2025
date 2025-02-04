@@ -140,6 +140,75 @@ console.log(hexNumber); // 16777215`
 arr.sort();
 console.log(arr); // ["a", "b", "c"]`
       ]
+    },
+    {
+      id: "intl-datetimeformat-formatrange",
+      type: "treasure",
+      title: "Intl.DateTimeFormat.prototype.formatRange (Ecma 402)",
+      description: "Une méthode permettant de formater une plage de dates avec une syntaxe optimisée.",
+      goals: [
+        "Faciliter l'affichage des plages de dates dans une forme naturelle et lisible.",
+        "Gérer automatiquement les raccourcis courants dans la langue cible.",
+        "Éviter d'afficher deux fois les parties redondantes (comme l'année ou le mois)."
+      ],
+      codes: [
+        `const formatter = new Intl.DateTimeFormat("fr", { month: "long", day: "numeric", year: "numeric" });
+    
+    const start = new Date(2023, 6, 1);
+    const end = new Date(2023, 6, 5);
+    
+    console.log(formatter.formatRange(start, end)); // "1 – 5 juillet 2023"`
+      ]
+    },
+    {
+      id: "intl-displaynames",
+      type: "treasure",
+      title: "Intl.DisplayNames (Ecma 402)",
+      description: "Une API permettant d'afficher des noms localisés pour les langues, régions, monnaies et scripts.",
+      goals: [
+        "Fournir une façon standardisée d'obtenir des noms traduits pour divers identifiants.",
+        "Éviter d'avoir à stocker des listes statiques de traductions.",
+        "Permettre aux applications multilingues d'afficher les noms correctement selon la locale de l'utilisateur."
+      ],
+      codes: [
+        `const displayNames = new Intl.DisplayNames(["fr"], { type: "region" });
+    
+    console.log(displayNames.of("US")); // "États-Unis"
+    console.log(displayNames.of("JP")); // "Japon"`
+      ]
+    },
+    {
+      id: "intl-datetimeformat-datestyle-timestyle",
+      type: "treasure",
+      title: "DateTimeFormat avec dateStyle & timeStyle (Ecma 402)",
+      description: "Ajout de styles prédéfinis pour simplifier le formatage des dates et heures.",
+      goals: [
+        "Fournir des styles de formatage de dates et d'heures faciles à utiliser.",
+        "Standardiser les formats courts, moyens, longs et complets.",
+        "Éviter la nécessité de définir manuellement les options comme le format des mois ou des années."
+      ],
+      codes: [
+        `const formatter = new Intl.DateTimeFormat("fr", { dateStyle: "long", timeStyle: "short" });
+    
+    console.log(formatter.format(new Date())); // "4 février 2025 à 14:30"`
+      ]
+    },
+    {
+      id: "intl-listformat",
+      type: "treasure",
+      title: "Intl.ListFormat (Ecma 402)",
+      description: "Une API pour formater des listes d'éléments selon les conventions linguistiques.",
+      goals: [
+        "Générer des listes de manière fluide et naturelle en fonction de la langue.",
+        "Prendre en charge différentes stratégies d'énumération ('conjonctive', 'disjonctive').",
+        "Éviter de gérer manuellement les séparateurs et les conjonctions selon la locale."
+      ],
+      codes: [
+        `const listFormatter = new Intl.ListFormat("fr", { style: "long", type: "conjunction" });
+    
+    console.log(listFormatter.format(["pomme", "banane", "cerise"])); 
+    // "pomme, banane et cerise"`
+      ]
     }
   ]
 };
