@@ -1,4 +1,6 @@
 export const LEVEL_2023 = {
+  id: 'ecmascript-2023',
+  shortTitle: '2023',
   title: "ECMAScript 2023, the 14th edition",
   description: "En 2023, JavaScript a introduit des fonctionnalités majeures qui enrichissent encore davantage les capacités du langage.",
   specialTiles: [

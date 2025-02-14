@@ -1,11 +1,13 @@
 export const LEVEL_2020 = {
+  id: 'ecmascript-2020',
+  shortTitle: '2020',
   title: 'ECMAScript 2020, the 11th edition',
   description: `En 2020, JavaScript a introduit plusieurs nouvelles fonctionnalités qui améliorent la syntaxe, les performances, et la convivialité du langage.`,
   specialTiles: [
     {
       id: 'goat-fence',
       type: 'trap',
-      title: 'La chèvre',
+      title: 'It\'s a trap !',
       description: ['La chèvre est un animal très agile qui peut sauter par-dessus les obstacles.'],
       goals: [
         "Sauter par-dessus les obstacles cachant d'autres obstacles : Utilisez la méthode flatMap pour aplatir un tableau de tableaux.",

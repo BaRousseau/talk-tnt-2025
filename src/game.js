@@ -8,14 +8,15 @@ import { LEVEL_STAGE_3 } from './levels/stage-3.js';
 import { LEVEL_STAGE_2_7 } from './levels/stage-2-7.js';
 import { LEVEL_STAGE_2 } from './levels/stage-2.js';
 import { LEVEL_STAGE_POPULAR } from './levels/stage-popular.js';
+import { LEVEL_ECOSYSTEM } from './levels/ecosystem-news.js';
 
 console.log(import.meta);
 
 const gridSize = 21; // Taille de la grille (impair pour un labyrinthe)
-const tileSize = 2.2; // Taille d'une case en rem
+const tileSize = '3.3vh'; // Taille d'une case en CSS
 const cells = []; // Tableau pour stocker les cellules de la grille
 let specialTiles = []; // Cases spéciales : trésors, pièges, bonus
-let currentLevel = 0; // Niveau actuel
+let currentLevelIndex = 0; // Niveau actuel
 let currentLevelContent = {}; // Contenu du niveau actuel
 
 const levels = [
@@ -28,7 +29,8 @@ const levels = [
   LEVEL_STAGE_3,
   LEVEL_STAGE_2_7,
   LEVEL_STAGE_2,
-  LEVEL_STAGE_POPULAR
+  LEVEL_STAGE_POPULAR,
+  LEVEL_ECOSYSTEM
 ];
 
 const pixelPosition = { x: 1, y: 0 }; // Position actuelle du joueur
@@ -41,8 +43,8 @@ const exitPosition = { x: gridSize - 2, y: gridSize - 1 }; // Position de la sor
 function generateGrid() {
   const gridElement = document.getElementById("grid");
   gridElement.innerHTML = "";
-  gridElement.style.gridTemplateColumns = `repeat(${gridSize}, ${tileSize}rem)`;
-  gridElement.style.gridTemplateRows = `repeat(${gridSize}, ${tileSize}rem)`;
+  gridElement.style.gridTemplateColumns = `repeat(${gridSize}, ${tileSize})`;
+  gridElement.style.gridTemplateRows = `repeat(${gridSize}, ${tileSize})`;
 
   const maze = generateMaze(gridSize);
   specialTiles = generateSpecialTiles(maze);
@@ -70,6 +72,7 @@ function generateGrid() {
 
       const special = specialTiles.find((tile) => tile.x === x && tile.y === y);
       if (special) {
+        div.id = special.id;
         div.classList.add(special.type);
       }
 
@@ -100,7 +103,6 @@ function generateSpecialTiles(maze) {
 
     specialTiles.push({ x, y, ...specialTile });
   });
-  console.log('Cases spéciales', specialTiles);
   return specialTiles;
 }
 
@@ -175,37 +177,18 @@ function updateGrid() {
   if (!cell.classList.contains("wall")) {
     cell.classList.add("pixel", "discovered");
     cell.classList.remove("fog");
-
-    if (cell.classList.contains("treasure") || cell.classList.contains("trap") || cell.classList.contains("bonus")) {
-      cell.classList.add("activated");
-    }
   }
 }
 
 /**
  * Charge le niveau suivant.
  */
-function loadNextLevel() {
-  currentLevel = (currentLevel + 1) % levels.length;
-  start(levels[currentLevel]);
-}
-
-/**
- * Vérifie si le joueur est sur une case spéciale et affiche la modal.
- */
-function openSpecialTile() {
-  const specialTile = specialTiles.find(tile =>
-    tile.x === pixelPosition.x && tile.y === pixelPosition.y
-  );
-
-  if (specialTile) {
-    // Marquer le menu de la case spéciale comme découverte
-    const menuItem = document.getElementById(`menu-${specialTile.id}`)
-    menuItem.classList.add("discovered");
-    menuItem.classList.add(specialTile.type);
-
-    showModal(specialTile);
+function loadNextLevel(nextLevel) {
+  currentLevelIndex = (currentLevelIndex + 1) % levels.length;
+  if (!nextLevel) {
+    nextLevel = levels[currentLevelIndex];
   }
+  start(nextLevel);
 }
 
 /**
@@ -283,11 +266,15 @@ function handleKeydown(event) {
 
 // Fonction de gestion des touches sur lors du keyup
 function handleKeyup(event) {
-  switch (event.key) {
-    // Space bar
-    case " ":
-      openSpecialTile();
-      break;
+  // Space bar
+  if (event.key === " ") {
+    const specialTile = specialTiles.find(tile =>
+      tile.x === pixelPosition.x && tile.y === pixelPosition.y
+    );
+
+    if (specialTile) {
+      showModal(specialTile);
+    }
   }
 }
 
@@ -307,11 +294,11 @@ function setupModalControls() {
 /**
  * Démarre un niveau avec une configuration spéciale.
  */
-export function start(level = LEVEL_2020) {
+export function start(newLevelContent = LEVEL_2020) {
   // Réinitialisation des variables
   cells.length = 0;
   specialTiles = [];
-  currentLevelContent = level;
+  currentLevelContent = newLevelContent;
 
   // Réinitialisation de la position du joueur
   pixelPosition.x = 1;
@@ -321,29 +308,38 @@ export function start(level = LEVEL_2020) {
   const gridElement = document.getElementById("grid");
   gridElement.innerHTML = "";
 
-  // Afficher le jeu
-  document.getElementById("game").classList.remove("hidden");
-
   // Change le titre du niveau
-  document.getElementById("gameTitle").innerText = level.title;
+  document.getElementById("gameTitle").innerText = currentLevelContent.title;
 
   // Change la description du niveau
-  document.getElementById("gameDesc").innerText = level.description;
+  document.getElementById("gameDesc").innerText = currentLevelContent.description;
 
   // Construit le menu de navigation
-  document.getElementById("menu").innerHTML = level.specialTiles
-    .map((specialTile) => {
-      if (!specialTile.id) {
-        console.warn("Case spéciale sans identifiant unique : ", specialTile.title);
-      }
-      return `<div id="menu-${specialTile.id}" class="menu-item">${specialTile.title}</div>`
-    })
-    .join("");
+  document.getElementById("menu").innerHTML = levels.map((level) => {
+    let currentMenu = '';
+    if (newLevelContent.title === level.title) {
+      currentMenu = `<div id="current-menu">` + level.specialTiles
+        .map((specialTile) => {
+          if (!specialTile.id) {
+            console.warn("Case spéciale sans identifiant unique : ", specialTile.title);
+          }
+          return `<div id="menu-${specialTile.id}" class="menu-item">${specialTile.title}</div>`
+        }).join("") + `</div>`;
+    }
+    return `<div id="level-${level.id}" class="level-item ${currentMenu ? 'current-level' : ''}">${level.shortTitle}</div>${currentMenu}`
+  }).join("");
 
-  level.specialTiles.forEach((specialTile) => {
+  newLevelContent.specialTiles.forEach((specialTile) => {
     const menuItem = document.getElementById(`menu-${specialTile.id}`);
     menuItem.addEventListener("click", () => {
       showModal(specialTile);
+    });
+  });
+
+  levels.forEach((level) => {
+    const menuItem = document.getElementById(`level-${level.id}`);
+    menuItem.addEventListener("click", () => {
+      loadNextLevel(level)
     });
   });
 
@@ -362,6 +358,15 @@ function showModal(specialTile) {
   const modalAssets = document.getElementById("modalAssets");
   const modalCloseButton = document.getElementById("closeModal");
 
+  // Marque la case spéciale comme activée
+  const specialCell = document.getElementById(specialTile.id);
+  specialCell.classList.add("activated");
+
+  // Marque le menu comme activé
+  const menuItem = document.getElementById(`menu-${specialTile.id}`)
+  menuItem.classList.add("discovered");
+  menuItem.classList.add(specialTile.type);
+
   modalTitle.innerText = specialTile.title;
   modalDesc.innerText = specialTile.description;
 
@@ -375,11 +380,12 @@ function showModal(specialTile) {
     const ID_COPY = "modal-code-copy-";
     const ID_CONTENT = "modal-code-content-";
     modalCodes.innerHTML = specialTile.codes.map((_code, index) => {
-      return `<button id="closeModal" class="btn btn-action icon-container">
-  <img id="${ID_COPY + index}" class="icon" src="/assets/icons/copy.svg"></img>
-</button>
-<pre><code id="${ID_CONTENT + index}" class="language-javascript"></code></pre>
-<hr />`;
+      return `<div class="code-container">
+  <button id="copyModal" class="icon-container">
+    <img id="${ID_COPY + index}" class="icon" src="/assets/icons/copy.svg"></img>
+  </button>
+  <pre><code id="${ID_CONTENT + index}" class="language-javascript"></code></pre>
+</div>`;
     }).join("");
 
     specialTile.codes.map((code, index) => {

@@ -1,4 +1,6 @@
 export const LEVEL_2025 = {
+  id: 'ecmascript-2025',
+  shortTitle: '2025',
   title: "ECMAScript 2025, the 16th edition - Stage 4",
   description: "Stage 4 - Proposition finalisée prête à être intégrée dans la spécification officielle.",
   specialTiles: [
@@ -12,14 +14,24 @@ export const LEVEL_2025 = {
         "Lisibilité accrue : Réduit le besoin de blocs try-catch explicites."
       ],
       codes: [
-        `Promise.try(() => {
-  if (Math.random() > 0.5) {
-    throw new Error("Random error!");
-  }
-  return "Success";
-})
-  .then(console.log)
-  .catch(console.error);`
+        `function doSomething(action) {
+  return Promise.try(action)
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error))
+    .finally(() => console.log("Done"));
+}
+
+doSomething(() => "Sync result");
+
+doSomething(() => {
+  throw new Error("Sync error");
+});
+
+doSomething(async () => "Async result");
+
+doSomething(async () => {
+  throw new Error("Async error");
+});`
       ]
     },
     {

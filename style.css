@@ -1,27 +1,103 @@
 :root {
-  --bg-color: #f4f4f9;
-  --action-color: #6abfad;
-  --cell-border-size: 3px;
+  /** MAIN COLORS */
+  --background-color: #F4F4F6;
+  --text-color: #333D4B;
+  --accent-color: #6A88C5;
+  --interactive-color: #A3D9A5;
+
+  /** SPECIAL COLORS */
+  --wall-color: #999999;
+  --special-color: #1386f1;
+  --treasure-color: #ffd700;
+  --trap-color: #a52a2a;
+  --bonus-color: #90ee90;
+  --entry-color: #008000;
+  --exit-color: #ff0000;
+
+  /** HEADER */
+  --header-height: 5rem;
+
+  /** MENU */
   --menu-border-size: 5px;
+
+  /** CELL */
+  --cell-border-size: 3px;
 }
 
 body {
-  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: var(--bg-color);
+  justify-content: center;
 }
 
+h1,
+h2,
+h3 {
+  margin: 10px 0;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+p.subtitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+p {
+  line-height: 1.6;
+}
+
+a {
+  color: var(--interactive-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  background-color: var(--interactive-color);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: 0.3s;
+  color: white;
+  font-size: 1.4rem;
+  height: 45px;
+}
+
+button:hover {
+  background-color: var(--accent-color);
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+}
+
+button .icon {
+  height: 25px;
+}
+
+/** Header */
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
-  height: 5vh;
-  margin: 1rem;
+  height: var(--header-height);
+  text-align: center;
 }
 
 .logo {
@@ -29,58 +105,75 @@ body {
   max-height: 36px;
 }
 
+/** Main */
 .main {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  gap: 0.5rem;
   width: 100%;
 }
 
+/** Game */
 .game-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  width: 98%;
+  width: 100%;
+}
+
+#gameTitle,
+#gameDesc {
+  text-align: center;
 }
 
 .game-content {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
 }
 
 /** Menu */
 #menu {
-  padding: 10px;
+  position: sticky;
+  overflow-y: auto;
+  height: calc(100vh - var(--header-height));
+  width: 280px;
+  padding-top: 10px;
+}
+
+#menu,
+#current-menu {
+  padding: 0 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
-.menu-item {
+.menu-item,
+.level-item {
   cursor: pointer;
   padding-left: 10px;
-  border-left: 4px solid darkslategrey;
+  border-left: 4px solid var(--accent-color);
   opacity: 0.3;
+  word-break: break-word;
 }
 
-.menu-item.discovered {
+.menu-item.discovered,
+.level-item.current-level {
   opacity: 1;
+  color: var(--accent-color);
 }
 
 .menu-item.discovered.treasure {
-  border-left: var(--menu-border-size) solid gold;
+  border-left: var(--menu-border-size) solid var(--treasure-color);
 }
 
 .menu-item.discovered.trap {
-  border-left: var(--menu-border-size) solid brown;
+  border-left: var(--menu-border-size) solid var(--trap-color);
 }
 
 .menu-item.discovered.bonus {
-  border-left: var(--menu-border-size) solid lightgreen;
+  border-left: var(--menu-border-size) solid var(--bonus-color);
 }
 
 /** Legend */
@@ -95,26 +188,18 @@ body {
   margin-bottom: 15px;
 }
 
-.legend-item.arrow-keys span {
-  margin-top: -15px;
-}
-
-.legend-item img {
-  width: 100px;
-}
-
 /** Grid */
 #grid {
   display: grid;
   grid-template-columns: repeat(21, 20px);
   grid-template-rows: repeat(21, 20px);
   gap: 1px;
+  height: 100%;
 }
 
 /* Par défaut, toutes les cases sont "invisibles" mais présentes */
 .cell {
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgb(228, 228, 228);
   transition: opacity 0.3s ease, background-color 0.3s ease;
 }
 
@@ -128,69 +213,48 @@ body {
 
 /* Lorsqu'une case est découverte, elle devient visible */
 .cell.discovered {
-  opacity: 1;
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 
 /* Les murs deviennent visibles après découverte */
 .cell.discovered.wall {
-  background-color: #555;
+  background-color: var(--wall-color);
 }
 
 /* Les cases spéciales restent visibles après découverte */
 .cell.discovered.activated.treasure {
-  border: var(--cell-border-size) solid gold;
-  background-color: gold;
+  border: var(--cell-border-size) solid var(--treasure-color);
+  background-color: var(--treasure-color);
 }
 
 .cell.discovered.activated.trap {
-  border: var(--cell-border-size) solid brown;
-  background-color: brown;
+  border: var(--cell-border-size) solid var(--trap-color);
+  background-color: var(--trap-color);
 }
 
 .cell.discovered.activated.bonus {
-  border: var(--cell-border-size) solid lightgreen;
-  background-color: lightgreen;
+  border: var(--cell-border-size) solid var(--bonus-color);
+  background-color: var(--bonus-color);
 }
 
 .cell.discovered.treasure,
 .cell.discovered.bonus,
 .cell.discovered.trap {
-  border: var(--cell-border-size) solid rgb(19, 134, 241);
+  border: var(--cell-border-size) solid var(--special-color);
 }
 
 /* Le pixel (joueur) doit toujours être visible */
 .cell.discovered.pixel {
   opacity: 1 !important;
-  background-color: var(--action-color) !important;
+  background-color: var(--accent-color) !important;
 }
 
 .cell.entry {
-  border: var(--cell-border-size) solid green;
+  border: var(--cell-border-size) solid var(--entry-color);
 }
 
 .cell.exit {
-  border: var(--cell-border-size) solid red;
-}
-
-/** Buttons */
-.btn {
-  border-radius: 10px;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  text-align: center;
-  cursor: pointer;
-}
-
-.btn.btn-action {
-  background-color: var(--action-color);
-  color: #fff;
-  font-size: 1.5rem;
-}
-
-/** Tools */
-.hidden {
-  display: none !important;
+  border: var(--cell-border-size) solid var(--exit-color);
 }
 
 /** Modal */
@@ -206,25 +270,42 @@ body {
   justify-content: center;
 }
 
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .modal-content {
   background: white;
   margin: 20px;
   padding: 20px;
   border-radius: 10px;
   overflow-y: auto;
-  max-height: 100vh;
+  max-height: 90vh;
 }
 
 #modalAssets {
   text-align: center;
 }
 
-/** Icons */
-.icon-container {
-  padding: 10px;
+/** Code */
+.code-container {
+  background-color: var(--background-color);
+  margin: 1rem 0;
+  border: 2px solid var(--background-color);
+  border-radius: 8px;
+  padding: 8px;
 }
 
-.icon-container .icon {
-  width: 30px;
-  height: 30px;
+/** Tools */
+.hidden {
+  display: none !important;
+}
+
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,4 +1,6 @@
 export const LEVEL_2024 = {
+  id: 'ecmascript-2024',
+  shortTitle: '2024',
   title: "ECMAScript 2024, the 15th edition",
   description: "En 2024, JavaScript a continué d'évoluer avec des ajouts significatifs qui renforcent sa flexibilité et ses capacités de traitement des données.",
   specialTiles: [
@@ -12,9 +14,15 @@ export const LEVEL_2024 = {
         "Interopérabilité : Facilite les opérations dans des environnements de calcul intensif ou de manipulation binaire."
       ],
       codes: [
-        `const buffer = new ArrayBuffer(10);
-const resizedBuffer = buffer.resize(20);
-console.log(resizedBuffer.byteLength); // 20`
+        `const buffer = new ArrayBuffer(8, { maxByteLength: 16 });
+
+console.log(buffer.byteLength);
+// Expected output: 8
+
+buffer.resize(12);
+
+console.log(buffer.byteLength);
+// Expected output: 12`
       ]
     },
     {

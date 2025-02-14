@@ -1,5 +1,7 @@
 export const LEVEL_STAGE_POPULAR = {
-  title: "ECMAScript Popular Proposals",
+  id: 'ecmascript-stage-popular',
+  shortTitle: 'Stage Tendance',
+  title: "ECMAScript Propositions les plus demandées",
   description: "Les propositions les plus demandées qui pourraient être intégrées dans les futures versions d'ECMAScript.",
   specialTiles: [
     {
@@ -95,7 +97,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "pipeline-operator",
       type: "treasure",
-      title: "[Stage 1] Pipeline Operator",
+      title: "[Stage 2] Pipeline Operator",
       description: "Une proposition pour introduire un opérateur de pipeline (`|>`), permettant de chaîner des opérations de manière plus lisible. Cette fonctionnalité est très utile pour les bibliothèques comme Lodash ou Ramda, et pour les développeurs adoptant un style de programmation fonctionnelle.",
       goals: [
         "Améliorer la lisibilité des chaînes d'opérations.",
@@ -112,7 +114,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "record-and-tuple",
       type: "treasure",
-      title: "[Stage 1] Record & Tuple",
+      title: "[Stage 2] Record & Tuple",
       description: "Une proposition pour introduire des types immuables pour les objets et les tableaux, appelés Records et Tuples, permettant une meilleure gestion des données immuables. Cette fonctionnalité est particulièrement utile pour les frameworks comme React ou Redux, où l'immutabilité est essentielle.",
       goals: [
         "Fournir des structures de données immuables par défaut.",
@@ -235,12 +237,55 @@ export const LEVEL_STAGE_POPULAR = {
         "Améliorer les performances des applications réactives."
       ],
       codes: [
-        `const count = signal(0);
-  effect(() => {
-    console.log('Count:', count.value);
+        `const controller = new AbortController();
+const signal = controller.signal;
+
+fetch('https://example.com/data', { signal })
+  .then(response => response.json())
+  .catch(error => {
+    if (error.name === 'AbortError') {
+      console.log('La requête a été annulée.');
+    }
   });
-  
-  count.value = 1; // Affiche 'Count: 1'`
+
+// Annuler la requête après 2 secondes
+setTimeout(() => controller.abort(), 2000);`,
+        `const signalController = new SignalController();
+const signal = signalController.signal;
+
+Promise.all([
+  fetch('https://example.com/data1', { signal }),
+  fetch('https://example.com/data2', { signal }),
+  fetch('https://example.com/data3', { signal })
+])
+  .then(responses => {
+    console.log('Réponses reçues', responses);
+  })
+  .catch(error => {
+    if (error.name === 'SignalError') {
+      console.log('Toutes les requêtes ont été annulées.');
+    }
+  });
+
+// Annuler après 3 secondes
+setTimeout(() => signalController.abort(), 3000);`,
+        `const signalController = new SignalController();
+const signal = signalController.signal;
+
+async function longRunningTask(signal) {
+  while (!signal.aborted) {
+    // Effectuer des tâches à intervalles réguliers
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log('Tâche en cours...');
+  }
+  console.log('Tâche annulée.');
+}
+
+longRunningTask(signal);
+
+// Annuler après 5 secondes
+setTimeout(() => signalController.abort(), 5000);
+`
       ]
     },
     {

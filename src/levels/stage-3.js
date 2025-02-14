@@ -1,10 +1,12 @@
 export const LEVEL_STAGE_3 = {
+  id: 'ecmascript-stage-3',
+  shortTitle: 'Stage 3',
   title: "ECMAScript Stage 3 Proposals",
   description: "Stage 3 - Spécification complète prête pour l'implémentation et les retours.",
   specialTiles: [
     {
       id: "legacy-regexp",
-      type: "update",
+      type: "bonus",
       title: "Legacy RegExp features in JavaScript",
       description: "Ajout de fonctionnalités héritées aux expressions régulières pour une meilleure compatibilité.",
       goals: [
@@ -17,7 +19,7 @@ console.log(regex.test('foobar')); // true`
     },
     {
       id: "temporal",
-      type: "feature",
+      type: "treasure",
       title: "Temporal API",
       description: "Une nouvelle API pour la manipulation des dates et heures, plus puissante que Date().",
       goals: [
@@ -30,7 +32,7 @@ console.log(now.toString());`
     },
     {
       id: "decorators",
-      type: "feature",
+      type: "treasure",
       title: "Decorators",
       description: "Ajoute le support des décorateurs pour modifier dynamiquement les classes et leurs méthodes.",
       goals: [
@@ -49,7 +51,7 @@ class Example {
     },
     {
       id: "json-parse-source",
-      type: "feature",
+      type: "treasure",
       title: "JSON.parse source text access",
       description: "Permet d'accéder directement au texte source lors de l'utilisation de JSON.parse().",
       goals: [
@@ -63,7 +65,7 @@ console.log(result.sourceText); // '{"name":"Alice"}'`
     },
     {
       id: "array-from-async",
-      type: "feature",
+      type: "treasure",
       title: "Array.fromAsync",
       description: "Ajoute une version asynchrone de Array.from().",
       goals: [
@@ -80,7 +82,7 @@ console.log(array); // [1, 2]`
     },
     {
       id: "explicit-resource-management",
-      type: "feature",
+      type: "treasure",
       title: "Explicit Resource Management",
       description: "Ajout de mécanismes explicites pour gérer les ressources et éviter les fuites mémoire.",
       goals: [
@@ -93,7 +95,7 @@ resource.use();`
     },
     {
       id: "float16",
-      type: "feature",
+      type: "treasure",
       title: "Float16 sur TypedArrays",
       description: "Ajout du support pour les nombres en float16 sur TypedArrays et DataView.",
       goals: [
@@ -108,7 +110,7 @@ console.log(view.getFloat16(0)); // 1.5`
     },
     {
       id: "decorator-metadata",
-      type: "feature",
+      type: "treasure",
       title: "Decorator Metadata",
       description: "Ajout de métadonnées aux décorateurs pour enrichir les classes.",
       goals: [
@@ -121,7 +123,7 @@ class User {}`
     },
     {
       id: "source-phase-imports",
-      type: "feature",
+      type: "treasure",
       title: "Source Phase Imports",
       description: "Ajout d'un mécanisme pour contrôler les imports avant leur exécution.",
       goals: [
@@ -133,7 +135,7 @@ class User {}`
     },
     {
       id: "timezone-canonicalization",
-      type: "update",
+      type: "bonus",
       title: "Time Zone Canonicalization",
       description: "Amélioration du support des fuseaux horaires en JavaScript.",
       goals: [
@@ -146,7 +148,7 @@ console.log(tz);`
     },
     {
       id: "uint8array-base64",
-      type: "feature",
+      type: "treasure",
       title: "Uint8Array to/from Base64",
       description: "Ajoute une conversion directe entre Uint8Array et Base64.",
       goals: [
@@ -159,7 +161,7 @@ console.log(encoded); // 'SGVsbG8='`
     },
     {
       id: "dynamic-code-brand-checks",
-      type: "feature",
+      type: "treasure",
       title: "Dynamic Code Brand Checks",
       description: "Ajoute des vérifications dynamiques de marque pour le code évalué.",
       goals: [
@@ -173,7 +175,7 @@ console.log(encoded); // 'SGVsbG8='`
     },
     {
       id: "redeclarable-global-vars",
-      type: "feature",
+      type: "treasure",
       title: "Redeclarable Global Eval-introduced Vars",
       description: "Permet la redéclaration de variables globales introduites par eval().",
       goals: [
@@ -187,7 +189,7 @@ console.log(x); // 20`
     },
     {
       id: "regexp-escape",
-      type: "feature",
+      type: "treasure",
       title: "RegExp.escape",
       description: "Ajoute une méthode pour échapper correctement les chaînes dans les expressions régulières.",
       goals: [
@@ -200,7 +202,7 @@ console.log(escaped); // 'Hello\\.'`
     },
     {
       id: "atomics-pause",
-      type: "feature",
+      type: "treasure",
       title: "Atomics.pause",
       description: "Ajoute une méthode pour suspendre un thread atomiquement.",
       goals: [
@@ -212,7 +214,7 @@ console.log(escaped); // 'Hello\\.'`
     },
     {
       id: "error-iserror",
-      type: "feature",
+      type: "treasure",
       title: "Error.isError",
       description: "Ajoute une méthode standard pour vérifier si une valeur est une erreur.",
       goals: [
@@ -224,7 +226,7 @@ console.log(escaped); // 'Hello\\.'`
     },
     {
       id: "error-iserror",
-      type: "feature",
+      type: "treasure",
       title: "Intl.Locale Info (Ecma 402)",
       description: "API pour exposer des informations locales, telles que le premier jour de la semaine ou d'autres paramètres régionaux.",
       goals: [

@@ -5,9 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Talk TNT 2025</title>
-  <link rel="stylesheet" href="/assets/stackoverflow-dark.min.css">
-  <script src="/assets/highlight.min.js"></script>
-  <script src="/assets/javascript.min.js"></script>
+  <link rel="stylesheet" href="/assets/highlight/stackoverflow-dark.min.css">
+  <script src="/assets/highlight/highlight.min.js"></script>
+  <script src="/assets/highlight/javascript.min.js"></script>
 
   <link rel="stylesheet" href="style.css" />
   <script src="src/main.js" defer></script>
@@ -15,60 +15,46 @@
 
 <body>
   <div class="header">
-    <img src="/assets/logo/logo.97c6093.svg" alt="" class="logo">
     <h1>Nouveautés et futur du JavaScript avec son écosystème</h1>
-    <img data-v-bd7cc288="" src="/assets/logo/apside-top.8b6b29a.png" alt="" class="logo">
   </div>
 
   <div class="main">
-    <button id="loadGameButton" autofocus class="btn btn-action">
-      Charger une partie
-    </button>
-
-    <div id="game" class="hidden game-container">
+    <div id="menu"></div>
+    <div class="game-container">
       <h2 id="gameTitle"></h2>
-      <h3 id="gameDesc"></h3>
-      <div class="game-content">
-        <div id="menu"></div>
+      <p class="subtitle" id="gameDesc"></p>
 
+      <div class="game-content">
         <div id="grid"></div>
 
         <div id="legend">
-          <div class="legend-item arrow-keys">
-            <img src="assets/keys/arrow-keys.png" alt="Touches directionnelles pour le déplacement">
+          <div class="flex-center legend-item">
+            <img src="assets/keys/arrows.svg" alt="Touches directionnelles pour le déplacement">
             <span>Déplacement</span>
           </div>
-          <div class="legend-item">
-            <img src="assets/keys/spacebar.png" alt="Barre espace">
+          <div class="flex-center legend-item">
+            <img src="assets/keys/spacebar.svg" alt="Barre espace">
             <span>Case spéciale</span>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="modal" class="modal hidden">
-      <div class="modal-content">
+    </div>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
         <h2 id="modalTitle"></h2>
-        <h3 id="modalDesc"></h3>
-        <div id="modalGoals"></div>
-        <hr />
-        <div id="modalCodes"></div>
-        <div id="modalAssets"></div>
-        <button id="closeModal" class="btn btn-action">Fermer</button>
+        <button id="closeModal" class="icon-container">X</button>
       </div>
+      <p id="modalDesc" class="subtitle"></p>
+      <div id="modalGoals"></div>
+      <div id="modalCodes"></div>
+      <div id="modalAssets"></div>
     </div>
-
   </div>
 
 </body>
-
-<footer>
-  <p>
-    <a href="https://tc39.es/ecma262/">Source : Draft ECMA-262 Language Specification</a>
-  </p>
-  <p>
-    <a href="https://tc39.es/ecma402/">Source : Draft ECMA-402 Internationalization API Specification</a>
-  </p>
-</footer>
 
 </html>
