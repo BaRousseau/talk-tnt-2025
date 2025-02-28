@@ -12,7 +12,7 @@ import { LEVEL_ECOSYSTEM } from './levels/ecosystem-news.js';
 
 console.log(import.meta);
 
-const gridSize = 21; // Taille de la grille (impair pour un labyrinthe)
+const gridSize = { x: 31, y: 21 }; // Taille de la grille (impair pour un labyrinthe)
 const tileSize = '3.3vh'; // Taille d'une case en CSS
 const cells = []; // Tableau pour stocker les cellules de la grille
 let specialTiles = []; // Cases spéciales : trésors, pièges, bonus
@@ -33,9 +33,23 @@ const levels = [
   LEVEL_ECOSYSTEM
 ];
 
-const pixelPosition = { x: 1, y: 0 }; // Position actuelle du joueur
-const entryPosition = { x: 1, y: 0 }; // Position de l'entrée
-const exitPosition = { x: gridSize - 2, y: gridSize - 1 }; // Position de la sortie
+const entryPosition = { x: 1, y: 0 }; // Position par défaut de l'entrée
+const exitPosition = { x: gridSize.x - 2, y: gridSize.y - 1 }; // Position par défaut de la sortie
+const pixelPosition = { x: entryPosition.x, y: entryPosition.y }; // Position actuelle du joueur
+
+function initPositions() {
+  // Position de l'entrée
+  entryPosition.x = Math.floor(Math.random() * (gridSize.x - 2)) + 1;
+  entryPosition.y = 0;
+
+  // Position de la sortie
+  exitPosition.x = Math.floor(Math.random() * (gridSize.x - 2)) + 1;
+  exitPosition.y = gridSize.y - 1;
+
+  // Position du joueur
+  pixelPosition.x = entryPosition.x;
+  pixelPosition.y = entryPosition.y;
+}
 
 /**
  * Génère un labyrinthe et initialise les cases spéciales.
@@ -43,10 +57,11 @@ const exitPosition = { x: gridSize - 2, y: gridSize - 1 }; // Position de la sor
 function generateGrid() {
   const gridElement = document.getElementById("grid");
   gridElement.innerHTML = "";
-  gridElement.style.gridTemplateColumns = `repeat(${gridSize}, ${tileSize})`;
-  gridElement.style.gridTemplateRows = `repeat(${gridSize}, ${tileSize})`;
+  gridElement.style.gridTemplateColumns = `repeat(${gridSize.x}, ${tileSize})`;
+  gridElement.style.gridTemplateRows = `repeat(${gridSize.y}, ${tileSize})`;
 
-  const maze = generateMaze(gridSize);
+  const maze = generateMaze(gridSize, entryPosition);
+
   specialTiles = generateSpecialTiles(maze);
 
   // Forcer l'entrée et la sortie à être accessibles
@@ -91,8 +106,8 @@ function generateSpecialTiles(maze) {
   currentLevelContent.specialTiles.forEach((specialTile) => {
     let x, y;
     do {
-      x = Math.floor(Math.random() * gridSize);
-      y = Math.floor(Math.random() * gridSize);
+      x = Math.floor(Math.random() * gridSize.x);
+      y = Math.floor(Math.random() * gridSize.y);
     } while (
       maze[y][x] !== 0 || // Doit être une case vide
       (x === pixelPosition.x && y === pixelPosition.y) || // Pas sur le joueur
@@ -109,8 +124,8 @@ function generateSpecialTiles(maze) {
 /**
  * Génère un labyrinthe en utilisant un algorithme de parcours.
  */
-function generateMaze(size) {
-  const maze = Array.from({ length: size }, () => Array(size).fill(1));
+function generateMaze(size, startPosition = { x: 1, y: 1 }) {
+  const maze = Array.from({ length: size.y }, () => Array(size.x).fill(1));
   const stack = [];
   const directions = [
     [0, -2], // Haut
@@ -123,6 +138,13 @@ function generateMaze(size) {
   maze[current.y][current.x] = 0;
   stack.push(current);
 
+  // Forcer une ouverture initiale vers le bas si possible
+  // if (startPosition.y + 2 < size.y - 1) {
+  //   maze[startPosition.y + 1][startPosition.x] = 0;
+  //   maze[startPosition.y + 2][startPosition.x] = 0;
+  //   stack.push({ x: startPosition.x, y: startPosition.y + 2 });
+  // }
+
   while (stack.length > 0) {
     current = stack.pop();
     const shuffledDirections = directions.sort(() => Math.random() - 0.5);
@@ -134,8 +156,8 @@ function generateMaze(size) {
       if (
         nx > 0 &&
         ny > 0 &&
-        nx < size - 1 &&
-        ny < size - 1 &&
+        nx < size.x - 1 &&
+        ny < size.y - 1 &&
         maze[ny][nx] === 1
       ) {
         const betweenX = current.x + dx / 2;
@@ -156,28 +178,30 @@ function generateMaze(size) {
  */
 function updateGrid() {
   cells.forEach((cell, index) => {
-    const x = index % gridSize;
-    const y = Math.floor(index / gridSize);
-
     // Calculer la distance de Manhattan entre le joueur et la cellule
-    const distance = Math.abs(x - pixelPosition.x) + Math.abs(y - pixelPosition.y);
+    const cellPosition = { x: index % gridSize.x, y: Math.floor(index / gridSize.x) };
+    const distance = Math.abs(cellPosition.x - pixelPosition.x) + Math.abs(cellPosition.y - pixelPosition.y);
 
+    // Lors de la découverte d'une case, retire le brouillard autour
     if (distance <= 2) {
       cell.classList.add("discovered");
-      cell.classList.remove("fog"); // Enlève définitivement le brouillard
+      cell.classList.remove("fog");
     }
 
     cell.classList.remove("pixel");
   });
 
-  // Position actuelle du joueur
-  const index = pixelPosition.y * gridSize + pixelPosition.x;
-  const cell = cells[index];
-
-  if (!cell.classList.contains("wall")) {
-    cell.classList.add("pixel", "discovered");
-    cell.classList.remove("fog");
+  const pixelCell = getCell(pixelPosition);
+  if (!pixelCell.classList.contains("wall")) {
+    pixelCell.classList.add("pixel", "discovered");
+    pixelCell.classList.remove("fog");
   }
+}
+
+// Position actuelle du joueur
+function getCell(position) {
+  const index = position.y * gridSize.x + position.x;
+  return cells[index];
 }
 
 /**
@@ -196,7 +220,6 @@ function loadNextLevel(nextLevel) {
  */
 function movePlayer(direction) {
   const newPosition = { ...pixelPosition };
-
   switch (direction) {
     case "up":
       newPosition.y -= 1;
@@ -212,12 +235,13 @@ function movePlayer(direction) {
       break;
   }
 
+  const cell = getCell(newPosition);
   if (
     newPosition.x >= 0 &&
-    newPosition.x < gridSize &&
+    newPosition.x < gridSize.x &&
     newPosition.y >= 0 &&
-    newPosition.y < gridSize &&
-    !cells[newPosition.y * gridSize + newPosition.x].classList.contains("wall")
+    newPosition.y < gridSize.y &&
+    !cell.classList.contains("wall")
   ) {
     pixelPosition.x = newPosition.x;
     pixelPosition.y = newPosition.y;
@@ -301,8 +325,7 @@ export function start(newLevelContent = LEVEL_2020) {
   currentLevelContent = newLevelContent;
 
   // Réinitialisation de la position du joueur
-  pixelPosition.x = 1;
-  pixelPosition.y = 0;
+  initPositions();
 
   // Supprimer entièrement l'ancienne grille pour éviter les doublons
   const gridElement = document.getElementById("grid");

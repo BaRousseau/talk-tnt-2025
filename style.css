@@ -6,13 +6,14 @@
   --interactive-color: #A3D9A5;
 
   /** SPECIAL COLORS */
-  --wall-color: #999999;
-  --special-color: #1386f1;
-  --treasure-color: #ffd700;
+  --fog-color: #a6a7a8;
+  --wall-color: #646464;
+  --special-color: #c3dbf1;
+  --treasure-color: #ffc115;
   --trap-color: #a52a2a;
   --bonus-color: #90ee90;
-  --entry-color: #008000;
-  --exit-color: #ff0000;
+  --entry-color: 0, 180, 0;
+  --exit-color: 180, 0, 0;
 
   /** HEADER */
   --header-height: 5rem;
@@ -22,6 +23,9 @@
 
   /** CELL */
   --cell-border-size: 3px;
+
+  /** PIXEL / PLAYER */
+  --cell-pixel-size: 8px;
 }
 
 body {
@@ -193,14 +197,11 @@ button .icon {
   display: grid;
   grid-template-columns: repeat(21, 20px);
   grid-template-rows: repeat(21, 20px);
-  gap: 1px;
   height: 100%;
 }
 
-/* Par défaut, toutes les cases sont "invisibles" mais présentes */
 .cell {
-  background-color: rgb(228, 228, 228);
-  transition: opacity 0.3s ease, background-color 0.3s ease;
+  transition: opacity 0.5s ease;
 }
 
 .cell:before {
@@ -212,49 +213,86 @@ button .icon {
 }
 
 /* Lorsqu'une case est découverte, elle devient visible */
+.cell.fog {
+  background-color: var(--fog-color);
+  filter: blur(13px);
+}
+
 .cell.discovered {
-  /* background-color: transparent; */
+  opacity: 1;
 }
 
 /* Les murs deviennent visibles après découverte */
 .cell.discovered.wall {
-  background-color: var(--wall-color);
-}
-
-/* Les cases spéciales restent visibles après découverte */
-.cell.discovered.activated.treasure {
-  border: var(--cell-border-size) solid var(--treasure-color);
-  background-color: var(--treasure-color);
-}
-
-.cell.discovered.activated.trap {
-  border: var(--cell-border-size) solid var(--trap-color);
-  background-color: var(--trap-color);
-}
-
-.cell.discovered.activated.bonus {
-  border: var(--cell-border-size) solid var(--bonus-color);
-  background-color: var(--bonus-color);
-}
-
-.cell.discovered.treasure,
-.cell.discovered.bonus,
-.cell.discovered.trap {
-  border: var(--cell-border-size) solid var(--special-color);
+  opacity: 0.7;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background: var(--wall-color);
 }
 
 /* Le pixel (joueur) doit toujours être visible */
 .cell.discovered.pixel {
-  opacity: 1 !important;
-  background-color: var(--accent-color) !important;
+  background-color: var(--accent-color);
+  outline: var(--cell-border-size) solid var(--accent-color);
+  border: var(--cell-border-size) solid var(--background-color);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  border-radius: 50%;
+  transform: scale(0.8);
 }
 
-.cell.entry {
-  border: var(--cell-border-size) solid var(--entry-color);
+/* Les cases spéciales restent visibles après découverte */
+.cell.discovered.treasure,
+.cell.discovered.bonus,
+.cell.discovered.trap {
+  background: var(--special-color);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  border: var(--cell-border-size) solid var(--background-color);
+  border-radius: 8px;
 }
 
-.cell.exit {
-  border: var(--cell-border-size) solid var(--exit-color);
+.cell.discovered.treasure.pixel,
+.cell.discovered.bonus.pixel,
+.cell.discovered.trap.pixel {
+  outline: var(--cell-border-size) solid var(--special-color);
+}
+
+.cell.discovered.activated.treasure {
+  background: var(--treasure-color);
+}
+
+.cell.discovered.activated.treasure.pixel {
+  outline: var(--cell-border-size) solid var(--treasure-color);
+}
+
+.cell.discovered.activated.trap {
+  background: var(--trap-color) !important;
+}
+
+.cell.discovered.activated.trap.pixel {
+  outline: var(--cell-border-size) solid var(--trap-color);
+}
+
+.cell.discovered.activated.bonus {
+  background: var(--bonus-color) !important;
+}
+
+.cell.discovered.activated.bonus.pixel {
+  outline: var(--cell-border-size) solid var(--bonus-color);
+}
+
+.cell.discovered.entry {
+  box-shadow: inset rgba(var(--entry-color), 0.4) 0px 5px, inset rgba(var(--entry-color), 0.3) 0px 10px, inset rgba(var(--entry-color), 0.2) 0px 15px, inset rgba(var(--entry-color), 0.1) 0px 20px, inset rgba(var(--entry-color), 0.05) 0px 25px;
+}
+
+.cell.discovered.entry.pixel {
+  background: var(--entry-color) !important;
+}
+
+.cell.discovered.exit {
+  box-shadow: inset rgba(var(--exit-color), 0.4) 0px 5px, inset rgba(var(--exit-color), 0.3) 0px 10px, inset rgba(var(--exit-color), 0.2) 0px 15px, inset rgba(var(--exit-color), 0.1) 0px 20px, inset rgba(var(--exit-color), 0.05) 0px 25px;
+}
+
+.cell.discovered.exit.pixel {
+  background: var(--exit-color) !important;
 }
 
 /** Modal */
