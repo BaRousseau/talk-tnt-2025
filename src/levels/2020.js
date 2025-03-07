@@ -2,7 +2,6 @@ export const LEVEL_2020 = {
   id: 'ecmascript-2020',
   shortTitle: '2020',
   title: 'ECMAScript 2020, the 11th edition',
-  description: `En 2020, JavaScript a introduit plusieurs nouvelles fonctionnalités qui améliorent la syntaxe, les performances, et la convivialité du langage.`,
   specialTiles: [
     {
       id: 'goat-fence',

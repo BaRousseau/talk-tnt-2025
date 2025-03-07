@@ -2,7 +2,6 @@ export const LEVEL_2022 = {
   id: 'ecmascript-2022',
   shortTitle: '2022',
   title: "ECMAScript 2022, the 13th edition",
-  description: "En 2022, JavaScript a introduit plusieurs améliorations significatives, renforçant la flexibilité et la puissance du langage pour répondre aux besoins des développeurs modernes.",
   specialTiles: [
     {
       id: "top-level-await",

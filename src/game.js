@@ -13,7 +13,7 @@ import { LEVEL_ECOSYSTEM } from './levels/ecosystem-news.js';
 
 console.log(import.meta);
 
-const gridSize = { x: 31, y: 21 }; // Taille de la grille (impair pour un labyrinthe)
+const gridSize = { x: 51, y: 27 }; // Taille de la grille (impair pour un labyrinthe)
 const tileSize = '3.3vh'; // Taille d'une case en CSS
 const cells = []; // Tableau pour stocker les cellules de la grille
 let specialTiles = []; // Cases spéciales : trésors, pièges, bonus
@@ -61,18 +61,13 @@ function generateGrid() {
   gridElement.style.gridTemplateColumns = `repeat(${gridSize.x}, ${tileSize})`;
   gridElement.style.gridTemplateRows = `repeat(${gridSize.y}, ${tileSize})`;
 
-  const terrain = generateOpenTerrain(gridSize, [entryPosition, exitPosition], 0.3, 3);
+  specialTiles = generateSpecialTiles(currentLevelContent.specialTiles);
 
-  generateSpecialTiles(terrain, currentLevelContent.specialTiles);
-
+  const terrain = generateOpenTerrain(gridSize, entryPosition, [entryPosition, exitPosition, ...specialTiles]);
   terrain.forEach((row, y) => {
     row.forEach((cell, x) => {
       const div = document.createElement("div");
-      div.classList.add("cell", "fog");
-
-      if (cell === 1) {
-        div.classList.add("wall");
-      }
+      div.classList.add("cell", "fog", ...cell.class);
 
       // Marquer l'entrée et la sortie
       if (x === entryPosition.x && y === entryPosition.y) {
@@ -97,14 +92,15 @@ function generateGrid() {
 /**
  * Génère des cases spéciales dans le labyrinthe.
  */
-function generateSpecialTiles(terrain, specialTilesContent) {
+function generateSpecialTiles(specialTilesContent) {
+  const specialTiles = [];
+
   specialTilesContent.forEach((specialTile) => {
     let x, y;
     do {
       x = Math.floor(Math.random() * gridSize.x);
       y = Math.floor(Math.random() * gridSize.y);
     } while (
-      terrain[y][x] !== 0 || // Doit être une case vide
       (x === pixelPosition.x && y === pixelPosition.y) || // Pas sur le joueur
       (x === entryPosition.x && y === entryPosition.y) || // Pas sur l'entrée
       (x === exitPosition.x && y === exitPosition.y) || // Pas sur la sortie
@@ -113,6 +109,8 @@ function generateSpecialTiles(terrain, specialTilesContent) {
 
     specialTiles.push({ x, y, ...specialTile });
   });
+
+  return specialTiles;
 }
 
 /**
@@ -275,9 +273,6 @@ export function start(newLevelContent = LEVEL_2020) {
 
   // Change le titre du niveau
   document.getElementById("gameTitle").innerText = currentLevelContent.title;
-
-  // Change la description du niveau
-  document.getElementById("gameDesc").innerText = currentLevelContent.description;
 
   // Construit le menu de navigation
   document.getElementById("menu").innerHTML = levels.map((level) => {

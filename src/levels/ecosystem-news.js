@@ -2,7 +2,6 @@ export const LEVEL_ECOSYSTEM = {
   id: 'ecmascript-ecosystem',
   shortTitle: 'Ecosystème',
   title: "Ecosystème",
-  description: "L'écosystème JavaScript est un terme qui englobe l'ensemble des outils, bibliothèques, frameworks, environnements d'exécution, normes et communautés.",
   specialTiles: [
     {
       id: "ecmascript-2025",

@@ -2,7 +2,6 @@ export const LEVEL_STAGE_POPULAR = {
   id: 'ecmascript-stage-popular',
   shortTitle: 'Stage Tendance',
   title: "ECMAScript Propositions les plus demandées",
-  description: "Les propositions les plus demandées qui pourraient être intégrées dans les futures versions d'ECMAScript.",
   specialTiles: [
     {
       id: "observable",

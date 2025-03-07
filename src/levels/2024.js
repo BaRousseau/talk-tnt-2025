@@ -2,7 +2,6 @@ export const LEVEL_2024 = {
   id: 'ecmascript-2024',
   shortTitle: '2024',
   title: "ECMAScript 2024, the 15th edition",
-  description: "En 2024, JavaScript a continué d'évoluer avec des ajouts significatifs qui renforcent sa flexibilité et ses capacités de traitement des données.",
   specialTiles: [
     {
       id: "arraybuffer-resizing",

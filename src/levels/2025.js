@@ -1,8 +1,7 @@
 export const LEVEL_2025 = {
   id: 'ecmascript-2025',
-  shortTitle: '2025',
+  shortTitle: 'Stage 4 (2025)',
   title: "ECMAScript 2025, the 16th edition - Stage 4",
-  description: "Stage 4 - Proposition finalisée prête à être intégrée dans la spécification officielle.",
   specialTiles: [
     {
       id: "promise-try",

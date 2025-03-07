@@ -2,7 +2,6 @@ export const LEVEL_STAGE_3 = {
   id: 'ecmascript-stage-3',
   shortTitle: 'Stage 3',
   title: "ECMAScript Stage 3 Proposals",
-  description: "Stage 3 - Spécification complète prête pour l'implémentation et les retours.",
   specialTiles: [
     {
       id: "legacy-regexp",

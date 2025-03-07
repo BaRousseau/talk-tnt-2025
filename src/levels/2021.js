@@ -2,7 +2,6 @@ export const LEVEL_2021 = {
   id: 'ecmascript-2021',
   shortTitle: '2021',
   title: "ECMAScript 2021 - 12th Edition",
-  description: "En 2021, JavaScript a continué d'évoluer avec l'ajout de fonctionnalités qui améliorent la convivialité, la précision, et les performances du langage.",
   specialTiles: [
     {
       id: "replaceAll",

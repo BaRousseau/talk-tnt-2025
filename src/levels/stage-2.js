@@ -2,7 +2,6 @@ export const LEVEL_STAGE_2 = {
   id: 'ecmascript-stage-2',
   shortTitle: 'Stage 2',
   title: "ECMAScript Stage 2 Proposals",
-  description: "Stage 2 - Première version des spécifications avec détails techniques.",
   specialTiles: [
     {
       id: "function-sent-metaproperty",

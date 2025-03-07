@@ -2,7 +2,6 @@ export const LEVEL_STAGE_2_7 = {
   id: 'ecmascript-stage-2-7',
   shortTitle: 'Stage 2.7',
   title: "ECMAScript Stage 2.7 Proposals",
-  description: "Stage 2.7 - Phase informelle de révision pour voir si les propositions sont suffisamment mûres avant de passer au Stage 3.",
   specialTiles: [
     {
       id: "shadowrealm",

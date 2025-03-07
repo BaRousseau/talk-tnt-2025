@@ -1,6 +1,12 @@
 :root {
+  /** SPACINGS */
+  --margin: 1rem;
+  --padding: 1rem;
+  --gap: 1rem;
+  --gap-sm: 0.5rem;
+
   /** MAIN COLORS */
-  --background-color: #F4F4F6;
+  --background-color: #d9d9e9;
   --text-color: #333D4B;
   --accent-color: #6A88C5;
   --interactive-color: #A3D9A5;
@@ -8,15 +14,12 @@
   /** SPECIAL COLORS */
   --fog-color: #a6a7a8;
   --wall-color: #646464;
-  --special-color: #c3dbf1;
+  --special-color: var(--accent-color);
   --treasure-color: #ffc115;
   --trap-color: #a52a2a;
   --bonus-color: #90ee90;
   --entry-color: 0, 180, 0;
   --exit-color: 180, 0, 0;
-
-  /** HEADER */
-  --header-height: 5rem;
 
   /** MENU */
   --menu-border-size: 5px;
@@ -43,7 +46,7 @@ body {
 h1,
 h2,
 h3 {
-  margin: 10px 0;
+  margin: var(--margin) 0;
   color: var(--accent-color);
   font-weight: 600;
 }
@@ -72,7 +75,7 @@ button {
   background-color: var(--interactive-color);
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
+  padding: var(--padding);
   transition: 0.3s;
   color: white;
   font-size: 1.4rem;
@@ -94,26 +97,20 @@ button .icon {
   height: 25px;
 }
 
-/** Header */
-.header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: var(--header-height);
-  text-align: center;
-}
-
+/** Logo */
 .logo {
-  margin: 8px 1rem;
+  position: fixed;
+  top: 0;
+  right: 0;
   max-height: 36px;
+  margin: 8px 1rem;
 }
 
 /** Main */
 .main {
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
+  gap: var(--gap);
   width: 100%;
 }
 
@@ -124,8 +121,7 @@ button .icon {
   width: 100%;
 }
 
-#gameTitle,
-#gameDesc {
+#gameTitle {
   text-align: center;
 }
 
@@ -140,25 +136,28 @@ button .icon {
 #menu {
   position: sticky;
   overflow-y: auto;
-  height: calc(100vh - var(--header-height));
-  width: 280px;
-  padding-top: 10px;
+  /** Toute la hauteur moins les padding en haut et en bas */
+  height: calc(100vh - (var(--padding) * 2));
+  max-width: 280px;
+  padding-top: var(--padding);
+  padding-bottom: var(--padding);
 }
 
 #menu,
 #current-menu {
-  padding: 0 10px;
+  padding-left: var(--padding);
+  padding-right: var(--padding);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--gap-sm);
 }
 
 .menu-item,
 .level-item {
   cursor: pointer;
-  padding-left: 10px;
+  padding-left: var(--padding);
   border-left: 4px solid var(--accent-color);
-  opacity: 0.3;
+  opacity: 0.5;
   word-break: break-word;
 }
 
@@ -222,14 +221,16 @@ button .icon {
   opacity: 1;
 }
 
-/* Les murs deviennent visibles après découverte */
+.cell.discovered.ground {
+  /* opacity: 0.7; */
+}
+
 .cell.discovered.wall {
   opacity: 0.7;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   background: var(--wall-color);
 }
 
-/* Le pixel (joueur) doit toujours être visible */
 .cell.discovered.pixel {
   background-color: var(--accent-color);
   outline: var(--cell-border-size) solid var(--accent-color);
@@ -316,8 +317,8 @@ button .icon {
 
 .modal-content {
   background: white;
-  margin: 20px;
-  padding: 20px;
+  margin: var(--margin);
+  padding: var(--padding);
   border-radius: 10px;
   overflow-y: auto;
   max-height: 90vh;
@@ -346,4 +347,9 @@ button .icon {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+/** Classe entourant un objet en mode debug */
+.debug {
+  outline: 10px solid red;
 }
