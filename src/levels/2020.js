@@ -272,8 +272,8 @@ console.log('0 || retourne', value); // retourne 'default';`
       ],
       codes: [
         `const obj = { a: { b: null } };
-console.log(obj?.a?.b?.c); // undefined (sans erreur)
-console.log(obj.a.b.c); // avec erreur`
+console.log(obj.a.b?.c); // renvoie undefined (sans erreur)
+console.log(obj.a.b.c); // renvoie une erreur`
       ]
     },
     {

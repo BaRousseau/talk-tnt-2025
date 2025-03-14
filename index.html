@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Talk TNT 2025</title>
+  <title>JavaScript</title>
   <link rel="stylesheet" href="/assets/highlight/stackoverflow-dark.min.css">
   <script src="/assets/highlight/highlight.min.js"></script>
   <script src="/assets/highlight/javascript.min.js"></script>
@@ -16,34 +16,17 @@
 <body>
   <img src="assets/logo/apside-top.8b6b29a.png" alt="Logo Apside" class="logo" />
 
-  <div class="main">
-    <div id="menu"></div>
-    <div class="game-container">
-      <h2 id="gameTitle"></h2>
-      <div class="game-content">
-        <div id="grid"></div>
+  <div id="menu"></div>
 
-        <div id="legend">
-          <div class="flex-center legend-item">
-            <img src="assets/keys/arrows.svg" alt="Touches directionnelles pour le déplacement">
-            <span>Déplacement</span>
-          </div>
-          <div class="flex-center legend-item">
-            <img src="assets/keys/spacebar.svg" alt="Barre espace">
-            <span>Case spéciale</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+  <div id="grid"></div>
 
   <div id="modal" class="modal hidden">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 id="modalTitle"></h2>
+        <h1 id="modalTitle"></h1>
         <button id="closeModal" class="icon-container">X</button>
       </div>
+      <h2 id="modalSubTitle"></h2>
       <p id="modalDesc" class="subtitle"></p>
       <div id="modalGoals"></div>
       <div id="modalCodes"></div>

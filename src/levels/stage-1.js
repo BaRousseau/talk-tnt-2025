@@ -1,12 +1,12 @@
-export const LEVEL_STAGE_POPULAR = {
-  id: 'ecmascript-stage-popular',
-  shortTitle: 'Stage Tendance',
-  title: "ECMAScript Propositions les plus demandées",
+export const LEVEL_STAGE_1 = {
+  id: 'ecmascript-stage-1',
+  shortTitle: 'Stage 1',
+  title: "ECMAScript Stage 1 Proposals (only ⭐)",
   specialTiles: [
     {
       id: "observable",
       type: "treasure",
-      title: "[Stage 1] Observable",
+      title: "Observable",
       description: "Une proposition pour introduire un type natif `Observable` en JavaScript, permettant de gérer des flux de données asynchrones. Cette fonctionnalité est largement utilisée dans des bibliothèques comme RxJS et est au cœur de la programmation réactive.",
       goals: [
         "Permettre une gestion native des flux de données asynchrones.",
@@ -29,7 +29,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "pattern-matching",
       type: "treasure",
-      title: "[Stage 1] Pattern Matching",
+      title: "Pattern Matching",
       description: "Une proposition pour introduire le pattern matching en JavaScript, permettant de comparer des structures de données complexes de manière expressive. Cette fonctionnalité est très attendue pour simplifier la gestion des états dans des frameworks comme React ou Redux.",
       goals: [
         "Permettre une syntaxe plus concise pour la comparaison de structures de données.",
@@ -47,7 +47,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "partial-application",
       type: "treasure",
-      title: "[Stage 1] Partial Application",
+      title: "Partial Application",
       description: "Une proposition pour permettre l'application partielle des fonctions, permettant de créer de nouvelles fonctions en fixant certains arguments. Cette fonctionnalité est couramment utilisée dans des bibliothèques comme Lodash ou Ramda pour la composition de fonctions.",
       goals: [
         "Permettre une syntaxe plus concise pour l'application partielle.",
@@ -63,7 +63,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "do-expressions",
       type: "treasure",
-      title: "[Stage 1] do Expressions",
+      title: "do Expressions",
       description: "Une proposition pour introduire des expressions `do`, permettant d'utiliser des blocs de code comme des expressions. Cette fonctionnalité est utile pour les développeurs travaillant avec des bibliothèques fonctionnelles ou des frameworks comme React.",
       goals: [
         "Permettre une syntaxe plus concise pour les blocs de code.",
@@ -81,7 +81,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "decimal",
       type: "treasure",
-      title: "[Stage 1] Decimal",
+      title: "Decimal",
       description: "Une proposition pour introduire un type natif `Decimal` en JavaScript, permettant des calculs décimaux précis. Cette fonctionnalité est essentielle pour les applications financières, scientifiques ou de calcul précis, et pourrait remplacer des bibliothèques comme `decimal.js`.",
       goals: [
         "Permettre des calculs décimaux précis sans perte de précision.",
@@ -94,44 +94,9 @@ export const LEVEL_STAGE_POPULAR = {
       ]
     },
     {
-      id: "pipeline-operator",
-      type: "treasure",
-      title: "[Stage 2] Pipeline Operator",
-      description: "Une proposition pour introduire un opérateur de pipeline (`|>`), permettant de chaîner des opérations de manière plus lisible. Cette fonctionnalité est très utile pour les bibliothèques comme Lodash ou Ramda, et pour les développeurs adoptant un style de programmation fonctionnelle.",
-      goals: [
-        "Améliorer la lisibilité des chaînes d'opérations.",
-        "Permettre une composition plus fluide des fonctions.",
-        "Faciliter l'écriture de code fonctionnel."
-      ],
-      codes: [
-        `const result = value
-    |> double
-    |> increment
-    |> square;`
-      ]
-    },
-    {
-      id: "record-and-tuple",
-      type: "treasure",
-      title: "[Stage 2] Record & Tuple",
-      description: "Une proposition pour introduire des types immuables pour les objets et les tableaux, appelés Records et Tuples, permettant une meilleure gestion des données immuables. Cette fonctionnalité est particulièrement utile pour les frameworks comme React ou Redux, où l'immutabilité est essentielle.",
-      goals: [
-        "Fournir des structures de données immuables par défaut.",
-        "Faciliter la comparaison profonde et le partage de données.",
-        "Améliorer les performances en évitant les copies inutiles."
-      ],
-      codes: [
-        `const record = #{ x: 1, y: 2 };
-  const tuple = #[1, 2, 3];
-  
-  console.log(record.x); // 1
-  console.log(tuple[0]); // 1`
-      ]
-    },
-    {
       id: "error-stacks",
       type: "treasure",
-      title: "[Stage 1] Error Stacks",
+      title: "Error Stacks",
       description: "Une proposition pour améliorer la gestion des piles d'erreurs en JavaScript, permettant une meilleure traçabilité des erreurs. Cette fonctionnalité est essentielle pour le débogage dans des applications complexes et asynchrones, et bénéficierait à tous les frameworks et bibliothèques JavaScript.",
       goals: [
         "Permettre une meilleure traçabilité des erreurs.",
@@ -143,7 +108,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "ses-secure-ecmascript",
       type: "treasure",
-      title: "[Stage 1] SES (Secure EcmaScript)",
+      title: "SES (Secure EcmaScript)",
       description: "Une proposition pour introduire un environnement d'exécution sécurisé en JavaScript, permettant d'exécuter du code non fiable de manière isolée. Cette fonctionnalité est cruciale pour les applications qui exécutent du code non fiable, comme les extensions de navigateur ou les sandboxes cloud.",
       goals: [
         "Permettre une exécution sécurisée de code non fiable.",
@@ -155,7 +120,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "type-annotations",
       type: "treasure",
-      title: "[Stage 1] Type Annotations",
+      title: "Type Annotations",
       description: "Une proposition pour introduire des annotations de type en JavaScript, permettant une meilleure maintenabilité et sécurité du code. Cette fonctionnalité est très demandée pour améliorer la qualité du code dans les grands projets et pourrait faciliter l'adoption de TypeScript ou d'autres outils de typage statique.",
       goals: [
         "Permettre une meilleure maintenabilité du code grâce au typage.",
@@ -171,7 +136,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "cancellation-api",
       type: "treasure",
-      title: "[Stage 1] Cancellation API",
+      title: "Cancellation API",
       description: "Une proposition pour introduire une API native pour annuler des opérations asynchrones, comme des requêtes ou des timeouts. Cette fonctionnalité est très utile pour les bibliothèques de gestion de requêtes comme Axios ou Fetch API, et pour les applications asynchrones complexes.",
       goals: [
         "Permettre une annulation facile des opérations asynchrones.",
@@ -196,7 +161,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "string-codepoints",
       type: "treasure",
-      title: "[Stage 1] String.prototype.codePoints",
+      title: "String.prototype.codePoints",
       description: "Une proposition pour ajouter une méthode `codePoints` aux chaînes de caractères, permettant de manipuler les points de code Unicode. Cette fonctionnalité est essentielle pour les applications internationalisées et les bibliothèques de gestion de texte.",
       goals: [
         "Permettre une manipulation plus facile des points de code Unicode.",
@@ -212,7 +177,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "array-unique",
       type: "treasure",
-      title: "[Stage 1] Array.prototype.unique()",
+      title: "Array.prototype.unique()",
       description: "Une proposition pour ajouter une méthode `unique` aux tableaux, permettant de retourner un nouveau tableau avec des éléments uniques. Cette fonctionnalité est souvent implémentée manuellement ou via des bibliothèques comme Lodash ou Underscore.js.",
       goals: [
         "Permettre une syntaxe plus concise pour obtenir des éléments uniques.",
@@ -228,7 +193,7 @@ export const LEVEL_STAGE_POPULAR = {
     {
       id: "signals",
       type: "treasure",
-      title: "[Stage 1] Signals",
+      title: "Signals",
       description: "Une proposition pour introduire un système de signaux natif en JavaScript, permettant une gestion réactive des données. Cette fonctionnalité est au cœur des frameworks modernes comme Solid.js ou Preact, et pourrait simplifier la réactivité dans les applications JavaScript.",
       goals: [
         "Permettre une gestion réactive des données sans avoir à utiliser des bibliothèques externes.",
@@ -290,7 +255,7 @@ setTimeout(() => signalController.abort(), 5000);
     {
       id: "concurrency-control",
       type: "treasure",
-      title: "[Stage 1] Concurrency Control",
+      title: "Concurrency Control",
       description: "Une proposition pour améliorer la gestion de la concurrence en JavaScript, en particulier pour les applications utilisant des Web Workers ou des opérations asynchrones complexes. Cette fonctionnalité est essentielle pour les frameworks comme React (avec React Server Components) et les applications multi-threadées.",
       goals: [
         "Permettre une meilleure gestion de la concurrence dans les applications modernes.",

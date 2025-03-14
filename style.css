@@ -5,16 +5,23 @@
   --gap: 1rem;
   --gap-sm: 0.5rem;
 
+  /** Z-INDEX */
+  --z-index-grid: 0;
+  --z-index-fade-out: 1;
+  --z-index-menu: 2;
+  --z-index-logo: 2;
+  --z-index-modal: 3;
+
   /** MAIN COLORS */
-  --background-color: #d9d9e9;
   --text-color: #333D4B;
   --accent-color: #6A88C5;
   --interactive-color: #A3D9A5;
 
   /** SPECIAL COLORS */
-  --fog-color: #a6a7a8;
-  --wall-color: #646464;
-  --special-color: var(--accent-color);
+  --fog-color: white;
+  --wall-color: #b69a83;
+  --ground-color: #d9d9e9;
+  --special-color: #d2d5f2;
   --treasure-color: #ffc115;
   --trap-color: #a52a2a;
   --bonus-color: #90ee90;
@@ -32,7 +39,7 @@
 }
 
 body {
-  background-color: var(--background-color);
+  background-color: var(--ground-color);
   color: var(--text-color);
   font-family: 'Inter', sans-serif;
   margin: 0;
@@ -97,50 +104,51 @@ button .icon {
   height: 25px;
 }
 
-/** Logo */
-.logo {
+.fade-out-element {
   position: fixed;
-  top: 0;
-  right: 0;
-  max-height: 36px;
-  margin: 8px 1rem;
-}
-
-/** Main */
-.main {
-  display: flex;
-  flex-direction: row;
-  gap: var(--gap);
-  width: 100%;
-}
-
-/** Game */
-.game-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-#gameTitle {
-  text-align: center;
-}
-
-.game-content {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   height: 100%;
+  width: 100%;
+  z-index: var(--z-index-fade-out);
+  opacity: 1;
+}
+
+.fade-out-opacity {
+  opacity: 0;
+  transition: opacity 5s;
+}
+
+/** Logo */
+.logo {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  max-height: 36px;
+  margin: 1rem;
+  z-index: var(--z-index-logo);
 }
 
 /** Menu */
 #menu {
-  position: sticky;
-  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-index-menu);
+  opacity: 0;
   /** Toute la hauteur moins les padding en haut et en bas */
   height: calc(100vh - (var(--padding) * 2));
-  max-width: 280px;
   padding-top: var(--padding);
   padding-bottom: var(--padding);
+  background-color: #ffffff;
+}
+
+#menu:hover {
+  opacity: 0.8;
+  overflow-y: auto;
+  min-width: 280px;
 }
 
 #menu,
@@ -179,24 +187,12 @@ button .icon {
   border-left: var(--menu-border-size) solid var(--bonus-color);
 }
 
-/** Legend */
-#legend {
-  padding: 10px;
-}
-
-.legend-item {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-bottom: 15px;
-}
-
 /** Grid */
 #grid {
   display: grid;
-  grid-template-columns: repeat(21, 20px);
-  grid-template-rows: repeat(21, 20px);
-  height: 100%;
+  z-index: var(--z-index-grid);
+  height: 100vh;
+  width: 100vw;
 }
 
 .cell {
@@ -214,7 +210,7 @@ button .icon {
 /* Lorsqu'une case est découverte, elle devient visible */
 .cell.fog {
   background-color: var(--fog-color);
-  filter: blur(13px);
+  filter: blur(17px);
 }
 
 .cell.discovered {
@@ -222,19 +218,18 @@ button .icon {
 }
 
 .cell.discovered.ground {
-  /* opacity: 0.7; */
+  background-color: var(--ground-color);
 }
 
 .cell.discovered.wall {
-  opacity: 0.7;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
   background: var(--wall-color);
 }
 
 .cell.discovered.pixel {
   background-color: var(--accent-color);
   outline: var(--cell-border-size) solid var(--accent-color);
-  border: var(--cell-border-size) solid var(--background-color);
+  border: var(--cell-border-size) solid var(--ground-color);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   border-radius: 50%;
   transform: scale(0.8);
@@ -246,14 +241,15 @@ button .icon {
 .cell.discovered.trap {
   background: var(--special-color);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  border: var(--cell-border-size) solid var(--background-color);
+  border: var(--cell-border-size) solid var(--ground-color);
   border-radius: 8px;
+  transition: box-shadow 1s;
 }
 
 .cell.discovered.treasure.pixel,
 .cell.discovered.bonus.pixel,
 .cell.discovered.trap.pixel {
-  outline: var(--cell-border-size) solid var(--special-color);
+  outline: var(--cell-border-size) solid var(--accent-color);
 }
 
 .cell.discovered.activated.treasure {
@@ -307,21 +303,26 @@ button .icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: var(--z-index-modal);
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+  margin: var(--margin) 0;
+}
+
+.modal-header #modalTitle {
+  margin: 0;
 }
 
 .modal-content {
   background: white;
-  margin: var(--margin);
   padding: var(--padding);
-  border-radius: 10px;
+  height: 100vh;
+  width: 100vw;
   overflow-y: auto;
-  max-height: 90vh;
 }
 
 #modalAssets {
@@ -330,9 +331,9 @@ button .icon {
 
 /** Code */
 .code-container {
-  background-color: var(--background-color);
+  background-color: var(--ground-color);
   margin: 1rem 0;
-  border: 2px solid var(--background-color);
+  border: 2px solid var(--ground-color);
   border-radius: 8px;
   padding: 8px;
 }

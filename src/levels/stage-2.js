@@ -5,7 +5,7 @@ export const LEVEL_STAGE_2 = {
   specialTiles: [
     {
       id: "function-sent-metaproperty",
-      type: "treasure",
+      type: "bonus",
       title: "Function.sent Metaproperty",
       description: "Une proposition pour introduire une métapropriété `function.sent` permettant d'accéder à la valeur envoyée à un générateur via `next()`.",
       goals: [
@@ -25,7 +25,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "throw-expressions",
-      type: "treasure",
+      type: "bonus",
       title: "Throw Expressions",
       description: "Une proposition pour permettre l'utilisation de `throw` dans des expressions, permettant de lever des erreurs dans des contextes où une expression est attendue.",
       goals: [
@@ -39,7 +39,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "function-implementation-hiding",
-      type: "treasure",
+      type: "bonus",
       title: "Function Implementation Hiding",
       description: "Une proposition pour permettre de masquer l'implémentation d'une fonction, rendant son code source inaccessible.",
       goals: [
@@ -51,7 +51,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "collection-normalization",
-      type: "treasure",
+      type: "bonus",
       title: "Collection Normalization",
       description: "Une proposition pour normaliser les collections (comme les `Map` et `Set`) afin de garantir un comportement cohérent entre les différentes implémentations.",
       goals: [
@@ -63,7 +63,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "istemplateobject",
-      type: "treasure",
+      type: "bonus",
       title: "isTemplateObject",
       description: "Une proposition pour introduire une méthode `isTemplateObject` permettant de vérifier si un objet est un objet de modèle littéral (template literal).",
       goals: [
@@ -82,7 +82,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "map-prototype-emplace",
-      type: "treasure",
+      type: "bonus",
       title: "Map.prototype.emplace",
       description: "Une proposition pour ajouter une méthode `emplace` à `Map`, permettant d'insérer ou de mettre à jour une valeur de manière atomique.",
       goals: [
@@ -100,7 +100,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "dynamic-import-host-adjustment",
-      type: "treasure",
+      type: "bonus",
       title: "Dynamic Import Host Adjustment",
       description: "Une proposition pour ajuster le comportement de l'importation dynamique (`import()`) afin de mieux s'intégrer avec les environnements hôtes.",
       goals: [
@@ -113,7 +113,7 @@ export const LEVEL_STAGE_2 = {
     {
       id: "record-and-tuple",
       type: "treasure",
-      title: "Record & Tuple",
+      title: "⭐ Record & Tuple",
       description: "Une proposition pour introduire des types immuables pour les objets et les tableaux, appelés Records et Tuples, permettant une meilleure gestion des données immuables.",
       goals: [
         "Fournir des structures de données immuables par défaut.",
@@ -130,7 +130,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "module-expressions",
-      type: "treasure",
+      type: "bonus",
       title: "Module Expressions",
       description: "Une proposition pour permettre l'utilisation d'expressions de module, permettant de créer des modules dynamiquement.",
       goals: [
@@ -147,7 +147,7 @@ export const LEVEL_STAGE_2 = {
     {
       id: "pipeline-operator",
       type: "treasure",
-      title: "Pipeline Operator",
+      title: "⭐ Pipeline Operator",
       description: "Une proposition pour introduire un opérateur de pipeline (`|>`) permettant de chaîner des opérations de manière plus lisible.",
       goals: [
         "Améliorer la lisibilité des chaînes d'opérations.",
@@ -163,7 +163,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "destructure-private-fields",
-      type: "treasure",
+      type: "bonus",
       title: "Destructure Private Fields",
       description: "Une proposition pour permettre la déstructuration des champs privés dans les classes.",
       goals: [
@@ -183,7 +183,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "regexp-buffer-boundaries",
-      type: "treasure",
+      type: "bonus",
       title: "RegExp Buffer Boundaries",
       description: "Une proposition pour ajouter des ancres de début et de fin (`\A`, `\z`, `\Z`) aux expressions régulières pour mieux gérer les limites de buffer.",
       goals: [
@@ -198,7 +198,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "string-dedent",
-      type: "treasure",
+      type: "bonus",
       title: "String.dedent",
       description: "Une proposition pour ajouter une méthode `dedent` aux chaînes de caractères, permettant de supprimer l'indentation inutile.",
       goals: [
@@ -215,7 +215,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "json-parseimmutable",
-      type: "treasure",
+      type: "bonus",
       title: "JSON.parseImmutable",
       description: "Une proposition pour ajouter une méthode `parseImmutable` à `JSON`, permettant de parser du JSON en objets immuables.",
       goals: [
@@ -230,7 +230,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "module-declarations",
-      type: "treasure",
+      type: "bonus",
       title: "Module Declarations",
       description: "Une proposition pour permettre des déclarations de module plus flexibles, y compris des modules imbriqués.",
       goals: [
@@ -242,7 +242,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "symbol-predicates",
-      type: "treasure",
+      type: "bonus",
       title: "Symbol Predicates",
       description: "Une proposition pour ajouter des prédicats aux symboles, permettant de vérifier des propriétés spécifiques.",
       goals: [
@@ -254,7 +254,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "async-iterator-helpers",
-      type: "treasure",
+      type: "bonus",
       title: "Async Iterator Helpers",
       description: "Une proposition pour ajouter des méthodes utilitaires aux itérateurs asynchrones, similaires à celles des itérateurs synchrones.",
       goals: [
@@ -271,7 +271,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "iterator-range",
-      type: "treasure",
+      type: "bonus",
       title: "Iterator.range",
       description: "Une proposition pour ajouter une méthode `range` aux itérateurs, permettant de générer des séquences de nombres facilement.",
       goals: [
@@ -287,7 +287,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "async-context",
-      type: "treasure",
+      type: "bonus",
       title: "Async Context",
       description: "Une proposition pour introduire un contexte asynchrone, permettant de suivre l'exécution asynchrone à travers les promesses et les callbacks.",
       goals: [
@@ -299,7 +299,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "esm-phase-imports",
-      type: "treasure",
+      type: "bonus",
       title: "ESM Phase Imports",
       description: "Une proposition pour permettre des imports par phase dans les modules ECMAScript, permettant de charger des modules en fonction de leur phase d'exécution.",
       goals: [
@@ -311,7 +311,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "discard-bindings",
-      type: "treasure",
+      type: "bonus",
       title: "Discard (void) Bindings",
       description: "Une proposition pour permettre des liaisons `void` (discard) dans les déclarations, permettant d'ignorer des valeurs inutiles.",
       goals: [
@@ -326,7 +326,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "propagate-active-scriptormodule",
-      type: "treasure",
+      type: "bonus",
       title: "Propagate active ScriptOrModule with JobCallback Record",
       description: "Une proposition pour propager l'information du script ou module actif dans les enregistrements de rappel de travail.",
       goals: [
@@ -338,7 +338,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "structs",
-      type: "treasure",
+      type: "bonus",
       title: "Structs: Fixed Layout Objects and Some Synchronization Primitives",
       description: "Une proposition pour introduire des objets à disposition fixe (structs) en JavaScript, permettant une meilleure gestion de la mémoire et des performances.",
       goals: [
@@ -350,7 +350,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "extractors",
-      type: "treasure",
+      type: "bonus",
       title: "Extractors",
       description: "Une proposition pour introduire des extracteurs, permettant de déstructurer des objets de manière personnalisée.",
       goals: [
@@ -362,7 +362,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "iterator-chunking",
-      type: "treasure",
+      type: "bonus",
       title: "Iterator Chunking",
       description: "Une proposition pour permettre le découpage des itérateurs en morceaux (chunks), facilitant le traitement de grandes séquences de données.",
       goals: [
@@ -374,7 +374,7 @@ export const LEVEL_STAGE_2 = {
     },
     {
       id: "immutable-arraybuffers",
-      type: "treasure",
+      type: "bonus",
       title: "Immutable ArrayBuffers",
       description: "Une proposition pour introduire des `ArrayBuffer` immuables, permettant une meilleure gestion de la mémoire partagée.",
       goals: [

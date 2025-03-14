@@ -8,30 +8,35 @@ import { LEVEL_2025 } from './levels/2025.js';
 import { LEVEL_STAGE_3 } from './levels/stage-3.js';
 import { LEVEL_STAGE_2_7 } from './levels/stage-2-7.js';
 import { LEVEL_STAGE_2 } from './levels/stage-2.js';
-import { LEVEL_STAGE_POPULAR } from './levels/stage-popular.js';
+import { LEVEL_STAGE_1 } from './levels/stage-1.js';
 import { LEVEL_ECOSYSTEM } from './levels/ecosystem-news.js';
 
-console.log(import.meta);
+const screenWidth = globalThis.innerWidth;
+const screenHeight = globalThis.innerHeight;
 
-const gridSize = { x: 51, y: 27 }; // Taille de la grille (impair pour un labyrinthe)
-const tileSize = '3.3vh'; // Taille d'une case en CSS
+// Taille souhaitée d'un carré (en pixels)
+const squareSize = 35;
+
+// Taille de la grille
+const gridSize = { x: Math.floor(screenWidth / squareSize), y: Math.floor(screenHeight / squareSize) };
+
 const cells = []; // Tableau pour stocker les cellules de la grille
 let specialTiles = []; // Cases spéciales : trésors, pièges, bonus
 let currentLevelIndex = 0; // Niveau actuel
 let currentLevelContent = {}; // Contenu du niveau actuel
 
 const levels = [
-  LEVEL_2020,
-  LEVEL_2021,
-  LEVEL_2022,
-  LEVEL_2023,
-  LEVEL_2024,
   LEVEL_2025,
   LEVEL_STAGE_3,
   LEVEL_STAGE_2_7,
   LEVEL_STAGE_2,
-  LEVEL_STAGE_POPULAR,
-  LEVEL_ECOSYSTEM
+  LEVEL_STAGE_1,
+  LEVEL_ECOSYSTEM,
+  LEVEL_2020,
+  LEVEL_2021,
+  LEVEL_2022,
+  LEVEL_2023,
+  LEVEL_2024
 ];
 
 const entryPosition = { x: 1, y: 0 }; // Position par défaut de l'entrée
@@ -58,8 +63,8 @@ function initPositions() {
 function generateGrid() {
   const gridElement = document.getElementById("grid");
   gridElement.innerHTML = "";
-  gridElement.style.gridTemplateColumns = `repeat(${gridSize.x}, ${tileSize})`;
-  gridElement.style.gridTemplateRows = `repeat(${gridSize.y}, ${tileSize})`;
+  gridElement.style.gridTemplateColumns = `repeat(${gridSize.x}, 1fr)`;
+  gridElement.style.gridTemplateRows = `repeat(${gridSize.y}, 1fr)`;
 
   specialTiles = generateSpecialTiles(currentLevelContent.specialTiles);
 
@@ -258,7 +263,7 @@ function setupModalControls() {
 /**
  * Démarre un niveau avec une configuration spéciale.
  */
-export function start(newLevelContent = LEVEL_2020) {
+export function start(newLevelContent = levels[0]) {
   // Réinitialisation des variables
   cells.length = 0;
   specialTiles = [];
@@ -271,8 +276,26 @@ export function start(newLevelContent = LEVEL_2020) {
   const gridElement = document.getElementById("grid");
   gridElement.innerHTML = "";
 
-  // Change le titre du niveau
-  document.getElementById("gameTitle").innerText = currentLevelContent.title;
+  const MAIN_TITLE_ID = "mainTitle";
+  let mainTitle = document.getElementById(MAIN_TITLE_ID)
+  if (mainTitle) {
+    mainTitle.remove();
+  }
+  mainTitle = document.createElement("h1");
+  mainTitle.id = MAIN_TITLE_ID;
+  mainTitle.classList.add("fade-out-element");
+  mainTitle.innerText = currentLevelContent.title;
+  document.body.appendChild(mainTitle);
+
+  // Ajoute l'effet de fondu
+  setTimeout(() => {
+    mainTitle.classList.add("fade-out-opacity");
+  }, 300);
+
+  // Supprime le titre après un certain délai
+  setTimeout(() => {
+    mainTitle.remove();
+  }, 5000);
 
   // Construit le menu de navigation
   document.getElementById("menu").innerHTML = levels.map((level) => {
@@ -312,6 +335,7 @@ export function start(newLevelContent = LEVEL_2020) {
 function showModal(specialTile) {
   const modal = document.getElementById("modal");
   const modalTitle = document.getElementById("modalTitle");
+  const modalSubTitle = document.getElementById("modalSubTitle");
   const modalDesc = document.getElementById("modalDesc");
   const modalGoals = document.getElementById("modalGoals");
   const modalCodes = document.getElementById("modalCodes");
@@ -327,7 +351,8 @@ function showModal(specialTile) {
   menuItem.classList.add("discovered");
   menuItem.classList.add(specialTile.type);
 
-  modalTitle.innerText = specialTile.title;
+  modalTitle.innerText = currentLevelContent.title;
+  modalSubTitle.innerText = specialTile.title;
   modalDesc.innerText = specialTile.description;
 
   if (specialTile.goals) {

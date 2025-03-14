@@ -11,7 +11,7 @@ export function generateOpenTerrain(size, entryTile, terrainTiles = [{ x: 1, y: 
   Noise.seed(Date.now()); // Génère un bruit unique à chaque exécution
 
   // Détermine l'échelle du bruit (ajuste la taille des îlots)
-  const noiseScale = 0.2; // Plus petit = îlots plus grands
+  const noiseScale = 0.15; // Plus petit = îlots plus grands
   const safeRadius = 1; // Rayon de sécurité autour des tuiles spéciales
 
   for (let y = 0; y < size.y; y++) {
@@ -22,7 +22,6 @@ export function generateOpenTerrain(size, entryTile, terrainTiles = [{ x: 1, y: 
       if (!isSafeZone) {
         // Génération du bruit de Perlin et conversion en obstacle (0 ou 1)
         const noiseValue = (Noise.simplex2(x * noiseScale, y * noiseScale) + 1) / 2; // Normalise entre 0 et 1
-        console.log(noiseValue)
         terrain[y][x] = noiseValue < 0 ? { class: ['wall'], value: 1 } : { class: ['ground'], value: 0 };
       }
     }

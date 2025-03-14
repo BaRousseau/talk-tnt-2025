@@ -49,8 +49,9 @@ console.log(result); // [2, 4, 6]`
       ]
     },
     {
+      check: true,
       id: "json-modules",
-      type: "bonus",
+      type: "treasure",
       title: "Modules JSON",
       description: "JavaScript permettra d'importer directement des fichiers JSON comme modules.",
       goals: [
@@ -58,13 +59,17 @@ console.log(result); // [2, 4, 6]`
         "Simplification : Évite les lectures manuelles de fichiers JSON."
       ],
       codes: [
-        `import config from "./config.json";
-console.log(config.apiKey);`
+        `import json from "./foo.json" with { type: "json" };
+import("foo.json", { with: { type: "json" } });`
+      ],
+      sources: [
+        "https://github.com/tc39/proposal-json-modules"
       ]
     },
     {
+      check: true,
       id: "import-attributes",
-      type: "bonus",
+      type: "treasure",
       title: "Attributs d'importation",
       description: "Les attributs d'importation permettent de fournir des métadonnées supplémentaires pour les modules importés.",
       goals: [
@@ -73,7 +78,14 @@ console.log(config.apiKey);`
       ],
       codes: [
         `import data from "./data.json" with { type: "json" };
-console.log(data);`
+console.log(data);`,
+`export { val } from './foo.js' with { type: "javascript" };`,
+`import("foo.json", { with: { type: "json" } })`,
+`new Worker("foo.wasm", { type: "module", with: { type: "webassembly" } });`,
+`<script src="foo.wasm" type="module" withtype="webassembly"></script>`
+      ],
+      sources: [
+        'https://github.com/tc39/proposal-import-attributes?tab=readme-ov-file'
       ]
     },
     {
