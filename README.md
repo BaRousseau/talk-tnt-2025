@@ -13,8 +13,7 @@ live-server
 
 Le TC39 (Technical Committee 39) est l’organisme qui supervise l’évolution du standard ECMAScript, qui est la spécification à la base de JavaScript. Il travaille activement sur l’amélioration et l’ajout de nouvelles fonctionnalités au langage, avec l’objectif de maintenir JavaScript moderne, performant et pertinent. Le TC39 suit un processus en plusieurs étapes pour définir les nouvelles propositions qui finiront par être incluses dans le langage officiel.
 
-Le futur de JavaScript passe donc par les propositions en cours au sein du TC39. Je vais approfondir les principales propositions en développement et ce qui pourrait façonner l’avenir de JavaScript dans les années à venir.
-
+Le futur de JavaScript passe donc par les propositions en cours au sein du TC39.
 Le processus pour qu’une proposition soit ajoutée à ECMAScript suit plusieurs étapes :
 
 - Stage 0 (Strawman) : Idée initiale sans acceptation formelle.
